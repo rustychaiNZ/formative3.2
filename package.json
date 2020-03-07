@@ -1,0 +1,19 @@
+{
+  "name": "formative3.2",
+  "version": "1.0.0",
+  "description": "Team project completed as part of the web and ux course at Yoobee Colleges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rustychaiNZ/formative3.2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rustychaiNZ/formative3.2/issues"
+  },
+  "homepage": "https://github.com/rustychaiNZ/formative3.2#readme"
+}
