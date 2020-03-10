@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/rustychaiNZ/formative3.2/issues"
   },
-  "homepage": "https://github.com/rustychaiNZ/formative3.2#readme"
+  "homepage": "https://github.com/rustychaiNZ/formative3.2#readme",
+  "keywords": [],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^5.9.4"
+  }
 }
