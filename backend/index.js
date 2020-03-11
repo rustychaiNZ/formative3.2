@@ -7,4 +7,4 @@ const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
 const product = require('./Products.json');
 const Project = require('./models/projects.js');
-const User = require('./models/users.js');
+const User = require('./models/users.js'); 
