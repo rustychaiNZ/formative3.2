@@ -15,5 +15,21 @@
   "bugs": {
     "url": "https://github.com/rustychaiNZ/formative3.2/issues"
   },
-  "homepage": "https://github.com/rustychaiNZ/formative3.2#readme"
+  "homepage": "https://github.com/rustychaiNZ/formative3.2#readme",
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.9.4",
+    "popper.js": "^1.16.1"
+  }
 }
