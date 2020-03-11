@@ -9,17 +9,20 @@ module.exports = function(grunt) {
 		jshint: {
 			all: ['Gruntfile.js', 'js/*.js']
 		},
+
+		// Css minify
 		cssmin: {
-  		target: {
-    	files: [{
-      	expand: true,
-      	cwd: '/css',
-      	src: ['*.css', '!*.min.css'],
-      	dest: '/css',
-      	ext: '.min.css'
-    	}]
-  	}
-	},
+  			target: {
+    			files: [{
+      				expand: true,
+      				cwd: '/css',
+      				src: ['*.css', '!*.min.css'],
+      				dest: '/css',
+      				ext: '.min.css'
+    			}]
+  			}
+		},
+		
 		// watch task
 		watch : {
 			scripts : {
