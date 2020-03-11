@@ -7,51 +7,86 @@ module.exports = function(grunt) {
 
 		// Jshint
 		jshint: {
-			all: ['Gruntfile.js', 'js/*.js']
+			files: ['Gruntfile.js', 'js/*.js', '!scripts.min.js'],
+			options: {
+			// options here to override JSHint defaults
+				globals: {
+					jQuery: true,
+					console: true,
+					module: true,
+					document: true
+				},
+				laxcomma: true,
+				esversion : 6
+			}	
+		},
+
+		// Uglify
+		uglify: {
+			build: {
+				src: 'js/script.js',
+				dest: 'js/script.min.js'
+			}
 		},
 
 		// Css minify
 		cssmin: {
-  			target: {
-    			files: [{
-      				expand: true,
-      				cwd: '/css',
-      				src: ['*.css', '!*.min.css'],
-      				dest: '/css',
-      				ext: '.min.css'
-    			}]
-  			}
+			target: {
+				files: [{
+					expand: true,
+					cwd: '/css',
+					src: ['*.css', '!*.min.css'],
+					dest: '/css',
+					ext: '.min.css'
+				}]
+			}
+		},
+
+		// csslint
+		csslint: {
+			lax: {
+				options: {
+					import: false,
+					'order-alphabetical': false
+				},
+				src: ['css/*.css', '!*.min.css']
+			}
+		},
+
+		// sass
+		sass: {
+			dist: {
+				options: {
+					style: 'expanded'
+				},
+				files: {
+					// Destenation : Source
+					'css/stylesheet.css' : 'sass/stylesheet.scss'
+				}
+			}
 		},
 		
 		// watch task
 		watch : {
 			scripts : {
-				files : ['js/*.js'],
-				tasks : ['jshint'],
+				files : ['js/*.js', 'sass/*.scss', 'css/stylesheet.css'],
+				tasks : ['sass', 'csslint', 'jshint', 'cssmin', 'uglify'],
 				options : false,
 			},
 		}
 
 	}); // end of gruntInit
 
-	// Project configuration.
-	grunt.initConfig({
-	  uglify: {
-	    my_target: {
-	      files: {
-	        'dest/output.min.js': ['src/input1.js', 'src/input2.js']
-	      }
-	    }
-	  }
-	});
 
 	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-uglify-es');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	// Default task(s).
-	grunt.registerTask('cssmin', ['cssmin']);
+	// Runt grunt task when typing grunt into terminal in public folder
+	grunt.registerTask('default', ['watch']);
 
 };
