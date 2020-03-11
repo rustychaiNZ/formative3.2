@@ -8,6 +8,15 @@ module.exports = function(grunt) {
 		jshint: {
 			all: ['Gruntfile.js', 'js/*.js']
 		}
+
+		// Uglify
+		uglify: {
+			my_target: {
+				files: {
+					'dest/output.min.js': ['src/input1.js', 'src/input2.js']
+				}
+			}
+		},
 		
 		// watch task
 		watch : {
@@ -21,14 +30,7 @@ module.exports = function(grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-	  uglify: {
-	    my_target: {
-	      files: {
-	        'dest/output.min.js': ['src/input1.js', 'src/input2.js']
-	      }
-	    }
-	  }
-	});
+	  
 
 	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
