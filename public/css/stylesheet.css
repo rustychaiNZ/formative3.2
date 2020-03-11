@@ -16,4 +16,18 @@
   margin: 0;
 }
 
+@media (min-width: 576px) {
+  .modal-dialog-register {
+    max-width: 900px;
+  }
+
+  .modal-dialog-login {
+    max-width: 700px;
+  }
+
+  .modal-dialog-new-project {
+    max-width: 1200px;
+  }
+}
+
 /*# sourceMappingURL=stylesheet.css.map */
