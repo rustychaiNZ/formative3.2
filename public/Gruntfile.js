@@ -31,8 +31,19 @@ module.exports = function(grunt) {
 
 	}); // end of gruntInit
 
+	// Project configuration.
+	grunt.initConfig({
+	  uglify: {
+	    my_target: {
+	      files: {
+	        'dest/output.min.js': ['src/input1.js', 'src/input2.js']
+	      }
+	    }
+	  }
+	});
 
 	// Load the plugin that provides the "uglify" task.
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
