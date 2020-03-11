@@ -1,17 +1,25 @@
 // Front end grant tasks
 module.exports = function(grunt) {
-	
+
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		
+
 		// Jshint
 		jshint: {
 			all: ['Gruntfile.js', 'js/*.js']
-		}
-
-		// 
-		
+		},
+		cssmin: {
+  		target: {
+    	files: [{
+      	expand: true,
+      	cwd: '/css',
+      	src: ['*.css', '!*.min.css'],
+      	dest: '/css',
+      	ext: '.min.css'
+    	}]
+  	}
+	},
 		// watch task
 		watch : {
 			scripts : {
@@ -27,5 +35,9 @@ module.exports = function(grunt) {
 	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+
 	// Default task(s).
+	grunt.registerTask('cssmin', ['cssmin']);
+
 };
