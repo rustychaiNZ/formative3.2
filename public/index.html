@@ -37,9 +37,15 @@
 					<div class="col-6">
 						<button id="loginUserBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#loginUserModal">Login</button>
 					</div>
-
 				</div>
 				<!-- Login and register container ends -->
+
+				<!-- Add project button -->
+				<div class="row my-2">
+					<div class="col-12">
+						<button id="addProjectBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createProjectModal">Add Project</button>
+					</div>
+				</div>
 
 			</div>
 			<!-- Site side bar end -->
@@ -84,7 +90,6 @@
 
 		<!-- Register user form -->
 		<div class="modal fade" id="registerNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<!-- <div id="registerNewUserModal" class="moal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
 			<div class="modal-dialog modal-dialog-centered modal-dialog-register" role="document">
 				<div class="modal-content">
 					<div class="modal-content">
@@ -135,7 +140,7 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="newPassword">Link to Profile Picture:</label>
+										<label for="newPassword">Password:</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
@@ -146,11 +151,11 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="confirmPassword">Link to Profile Picture:</label>
+										<label for="confirmPassword">Confirm Password:</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
-										<input name="confirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="confirmPassword">
+										<input name="confirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="Confirm password">
 									</div>
 								</div>
 							</div>
@@ -172,7 +177,7 @@
 				<div class="modal-content">
 					<!-- Modal header -->
 					<div class="modal-header bg-dark">
-						<h4 class="text-light">Register New User</h4>
+						<h4 class="text-light">Login</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span class="text-light" aria-hidden="true">&times;</span>
 						</button>
@@ -197,6 +202,77 @@
 			</div>
 		</div>
 		<!-- Login form end -->
+
+		<!-- Add project form -->
+		<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-new-project" role="document">
+				<div class="modal-content">
+					<div class="modal-content">
+						<!-- Header -->
+						<div class="modal-header bg-dark">
+							<h4 class="text-light">Create Project</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span class="text-light" aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Header end -->
+						<form id="registerUserForm">
+							<div class="modal-body bg-white">
+								<!-- Project name -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="newProjectName">Project Name:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<input name="newProjectName" type="text" id="newProjectName" class="form-control" placeholder="Project name">
+									</div>
+								</div>
+								<!-- Project Brief -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectBrief">Project Brief:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<textarea name="projectBrief" row="4" id="projectBrief" class="form-control" placeholder="Brief"></textarea>
+									</div>
+								</div>
+								<!-- Link to Project Screenshot -->
+								<div class="row align-items-stretch my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectPicture">Link to Project Screenshot:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10 align-self-center">
+										<input name="projectPicture" type="text" id="projectPicture" class="form-control" placeholder="Enter google Drive url">
+									</div>
+								</div>
+								<!-- Git Repo -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectExternalLink">Link to Git Repository:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<input name="projectExternalLink" type="text" id="projectExternalLink" class="form-control" placeholder="https://github.com/xxxx">
+									</div>
+								</div>
+							<!-- Modal footer -->
+							<div class="modal-footer bg-light">
+								<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-lg btn-success">Submit</button>
+							</div>	
+						</form>
+					</div>
+				</div>					
+			</div>
+		</div>
+		<!-- Add project form end -->
 
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
