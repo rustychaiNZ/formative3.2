@@ -3,23 +3,88 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+		<!-- Bootstrap stylesheet -->
 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css" >
-
+		<!-- Custom stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 		<title>Formative 3.2</title>
 	</head>
+
 	<body>
-		<div class="container">
-			<h1 id="heading"></h1>
+		
+		<!-- Page container -->
+		<div class="page row bg-secondary">
+			
+			<!-- Site side bar -->
+			<div class="col-3 py-5 px-4 site-side-bar">
+				
+				<!-- Navigation bar starts -->
+				<div id="navContainer" class="list-group mt-5 mx-auto">
+					<!-- Filler buttons for now -->
+					<button type="button" class="list-group-item list-group-item-action active">Home</button>
+					<button type="button" class="list-group-item list-group-item-action">Shay</button>
+					<button type="button" class="list-group-item list-group-item-action">Vandy</button>
+					<button type="button" class="list-group-item list-group-item-action">Rahul</button>
+					<button type="button" class="list-group-item list-group-item-action">Russell</button>
+				</div>
+				<!-- Navigation bar ends -->
+				
+				<!-- login and register container -->
+				<div class="row my-3">
+					<div class="col-6">
+						<button id="registerNewUser" class="btn btn-lg btn-primary btn-block">Register</button>
+					</div>
+					<div class="col-6">
+						<button id="loginUser" class="btn btn-lg btn-primary btn-block">Login</button>
+					</div>
 
+				</div>
+				<!-- Login and register container ends -->
 
+			</div>
+			<!-- Site side bar end -->
+
+			<!-- Site body -->
+			<div class="col-9">
+
+				<!-- Content container -->
+				<div class="container fill-height bg-light">
+
+					<!-- Site welcoming message -->
+					<div id="welcomePage" class="row">
+						<div class="col-12">
+							<h1 class="display-1">Hello World</h1>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+					</div>
+					
+					<!-- Dynamically generated content prints here -->
+					<div id="printOut">
+						
+					</div>
+
+				</div>
+				<!-- Content container end -->
+
+			</div>
+			<!-- Site body ends -->
 
 		</div>
 
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+		<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="js/script.js"></script>
 	</body>
+
 </html>
