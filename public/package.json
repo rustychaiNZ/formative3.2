@@ -2,6 +2,7 @@
   "name": "public",
   "version": "1.0.0",
   "description": "",
+<<<<<<< HEAD
   "main": "Gruntfile.js",
   "dependencies": {
     "grunt": "^1.0.4",
@@ -10,10 +11,31 @@
     "grunt-html": "^12.2.0"
   },
   "devDependencies": {},
+=======
+  "main": "index.js",
+>>>>>>> 5992b796b1c08e28df1d19992f00369a3e160bf2
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
+<<<<<<< HEAD
   "license": "ISC"
+=======
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-csslint": "^2.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1"
+  }
+>>>>>>> 5992b796b1c08e28df1d19992f00369a3e160bf2
 }
