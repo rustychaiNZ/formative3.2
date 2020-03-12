@@ -39,13 +39,13 @@ app.use(cors());
 // All files from public folder must be included
 app.use(express.static('public'));
 
-app.get('/', (req, res) => res.send('Your application is working fam!'))
+app.get('/', (req, res) => res.send('Your application is working fam!'));
 
 //register user
 app.get('/viewUsers', (req,res)=>{
 	User.find().then(result =>{
 		res.send(result);
-	})
+	});
 });
 
 // Adding a project
@@ -90,7 +90,7 @@ app.patch('/updateProject/:id' , (req,res) =>{
 app.get('/viewProjects', (req,res) =>{
 	Project.find().then(result =>{
 		res.send(result);
-	})
+	});
 });
 
 // Delete a project
@@ -98,7 +98,7 @@ app.delete('/deleteProject/:id', (req,res) =>{
 	const idParam = req.params.id;
 	Project.findOne({project_id:idParam}, (err,project) =>{
 		if (project){
-			Project.deleteOne({_id:idParam}, err =>{
+			Project.deleteOne({project_id:idParam}, err =>{
 				res.send('Project successfully deleted');
 			});
 		} else {
@@ -107,7 +107,29 @@ app.delete('/deleteProject/:id', (req,res) =>{
 	}).catch(err => res.send(err));
 });
 
+//Register users
+app.post('/registerUser', (req, res)=>{
+	//checking if user is found in the db already.
+	User.findOne({username:req.body.username},(err, userResult)=>{
+		if(userResult){
+			res.send('username taken already, Please try another one');
+		} else {
+			const hash = bcryptjs.hashSync(req.body.password);
+			const users = new User({
+				user_id : new mongoose.Types.ObjectId,
+				username  : req.body.username,
+				email : req.body.email,
+				password  : hash
+		  });
+		  //Save to database and notify the user accordingly
+			users.save().then(result =>{
+				res.send(result);
+			}).catch(err => res.send(err));
+		}
+	});
+});
+
 // DO NOT ADD CODE PAST THIS POINT
 
 //keep this always at the bottom so that you can see the errors reported
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
