@@ -5,9 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
-// const product = require('./Projects.json');
 const Project = require('./models/projects.js');
-const User = require('./models/users.js'); 
+const User = require('./models/users.js');
 
 // Port
 const port = 3000;
@@ -79,7 +78,47 @@ app.patch('/updateProject/:id' , (req,res) =>{
 		}).catch(err =>res.send(err));
 	// If the user has entered the wrong id and the project cannot be found
 	}).catch(err =>res.send('Project not found'));
+
+// View projects
+app.get('/viewProjects', (req,res) =>{
+	Project.find().then(result =>{
+		res.send(result);
+	})
 });
+
+// Delete a project
+app.delete('/deleteProject/:id', (req,res)=>{
+	const idParam = req.params.id;
+	Project.findOne({_id:idParam}, (err,project)=>{
+		if (project){
+			Project.deleteOne({_id:idParam}, err=>{
+				res.send('Project successfully deleted');
+			});
+		} else {
+			res.send('Error: Not Found');
+		}
+	}).catch(err => res.send(err));
+});
+
+
+
+
+//register user
+app.get('/allUsers', (req,res)=>{
+	User.find().then(result =>{
+		res.send(result);
+	})
+});
+
+
+
+
+
+
+
+
+
+
 
 //keep this always at the bottom so that you can see the errors reported
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
