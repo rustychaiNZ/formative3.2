@@ -1,11 +1,12 @@
 // Since we are using mongoose, we need to require it
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
-	_id : mongoose.Schema.Types.ObjectId, 
-	productName : String ,
-	quantity : Number ,
-	price : Number ,
+const projectSchema = new mongoose.Schema({
+	project_id : mongoose.Schema.Types.ObjectId, 
+	projectName : String ,
+	projectBrief : String ,
+	projectImage : String ,
+	projectLink : String ,
 	user_id : {
 		type : mongoose.Schema.Types.ObjectId,
 		ref : 'User'
