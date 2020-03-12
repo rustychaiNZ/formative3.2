@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
-const product = require('./Products.json');
+// const product = require('./Products.json');
 const Project = require('./models/projects.js');
 const User = require('./models/users.js');
 
@@ -40,16 +40,26 @@ app.use(cors());
 // All files from public folder must be included
 app.use(express.static('public'));
 
-// Adding a project
-app.post('/registerProject' , (req,res) =>{
-	const project = new Project({
-		project_id : new mongoose.types.objectId,
-		projectName : req.body.projectName,
-		projectBrief :
-		projectImage : projectImage,
-		projectLink : projectLink,
-		user_id : user_id
-	});
+
+// View projects
+app.get('/viewProjects', (req,res) =>{
+	Project.find().then(result =>{
+		res.send(result);
+	})
+});
+
+// Delete a project
+app.delete('/deleteProject/:id', (req,res)=>{
+	const idParam = req.params.id;
+	Project.findOne({_id:idParam}, (err,project)=>{
+		if (project){
+			Project.deleteOne({_id:idParam}, err=>{
+				res.send('Project successfully deleted');
+			});
+		} else {
+			res.send('Error: Not Found');
+		}
+	}).catch(err => res.send(err));
 });
 
 
