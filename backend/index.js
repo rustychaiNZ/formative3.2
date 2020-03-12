@@ -43,7 +43,12 @@ app.use(express.static('public'));
 // Adding a project
 app.post('/registerProject' , (req,res) =>{
 	const project = new Project({
-
+		project_id : new mongoose.types.objectId,
+		projectName : req.body.projectName,
+		projectBrief :
+		projectImage : projectImage,
+		projectLink : projectLink,
+		user_id : user_id
 	});
 });
 
