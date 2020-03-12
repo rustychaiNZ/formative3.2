@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
-// const product = require('./Products.json');
 const Project = require('./models/projects.js');
 const User = require('./models/users.js');
 
@@ -40,6 +39,45 @@ app.use(cors());
 // All files from public folder must be included
 app.use(express.static('public'));
 
+app.get('/', (req, res) => res.send('Your application is working fam!'))
+
+// Adding a project
+app.post('/registerProject' , (req,res) =>{
+	const project = new Project({
+		project_id : new mongoose.Types.ObjectId,
+		projectName : req.body.projectName,
+		projectBrief : req.body.projectBrief,
+		projectImage : req.body.projectImage,
+		projectLink : req.body.projectLink
+		// user_id : req.body.user_id
+	});
+	// Pushes product to database
+	project.save().then(result =>{
+		res.send(result);
+	}).catch(err =>res.send(err));
+});
+
+// Modifying a project
+app.patch('/updateProject/:id' , (req,res) =>{
+	// stores inputted project ID
+	const idParam = req.params.id;
+	// Finds the relating Project with the same id
+	Project.findById(idParam , (err,project) =>{
+		// Updates the listed properties
+		const updateProject = {
+			projectName : req.body.projectName,
+			projectName : req.body.projectBrief,
+			projectBrief : req.body.projectBrief,
+			projectImage : req.body.projectImage,
+			projectLink : req.body.projectLink,
+			user_id : req.body.user_id
+		};
+		// Updates the one matching project instead of all of them
+		Project.updateOne({project_id:idParam}, updateProject).then(result =>{
+			res.send(result);
+		}).catch(err =>res.send(err));
+	// If the user has entered the wrong id and the project cannot be found
+	}).catch(err =>res.send('Project not found'));
 
 // View projects
 app.get('/viewProjects', (req,res) =>{
@@ -70,7 +108,6 @@ app.get('/allUsers', (req,res)=>{
 	User.find().then(result =>{
 		res.send(result);
 	})
-
 });
 
 

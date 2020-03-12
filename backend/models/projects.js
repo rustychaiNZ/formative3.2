@@ -7,10 +7,10 @@ const projectSchema = new mongoose.Schema({
 	projectBrief : String ,
 	projectImage : String ,
 	projectLink : String ,
-	user_id : {
-		type : mongoose.Schema.Types.ObjectId,
-		ref : 'User'
-	}
+	// user_id : {
+		// type : mongoose.Schema.Types.ObjectId,
+		// ref : 'User'
+	// }
 });
 
 module.exports =  mongoose.model('Project' , projectSchema);
