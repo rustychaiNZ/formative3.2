@@ -7,7 +7,7 @@ const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
 const product = require('./Products.json');
 const Project = require('./models/projects.js');
-const User = require('./models/users.js'); 
+const User = require('./models/users.js');
 
 // Port
 const port = 3000;
@@ -51,6 +51,27 @@ app.post('/registerProject' , (req,res) =>{
 		user_id : user_id
 	});
 });
+
+
+
+
+//register user
+app.get('/allUsers', (req,res)=>{
+	User.find().then(result =>{
+		res.send(result);
+	})
+
+});
+
+
+
+
+
+
+
+
+
+
 
 //keep this always at the bottom so that you can see the errors reported
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
