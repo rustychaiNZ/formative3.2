@@ -40,6 +40,13 @@ app.use(cors());
 // All files from public folder must be included
 app.use(express.static('public'));
 
+// Adding a project
+app.post('/registerProject' , (req,res) =>{
+	const project = new Project({
+
+	});
+});
+
 //keep this always at the bottom so that you can see the errors reported
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
