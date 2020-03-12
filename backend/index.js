@@ -12,7 +12,7 @@ const User = require('./models/users.js');
 const port = 3000;
 
 // Connect to db
-const mongodbURI = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}.mongodb.net/shop?retryWrites=true&w=majority`;
+const mongodbURI = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}.mongodb.net/formative3?retryWrites=true&w=majority`;
 mongoose.connect(mongodbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> console.log('DB connected!'))
 .catch(err =>{
@@ -40,6 +40,13 @@ app.use(cors());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => res.send('Your application is working fam!'))
+
+//register user
+app.get('/viewUsers', (req,res)=>{
+	User.find().then(result =>{
+		res.send(result);
+	})
+});
 
 // Adding a project
 app.post('/registerProject' , (req,res) =>{
@@ -78,6 +85,7 @@ app.patch('/updateProject/:id' , (req,res) =>{
 		}).catch(err =>res.send(err));
 	// If the user has entered the wrong id and the project cannot be found
 	}).catch(err =>res.send('Project not found'));
+});
 
 // View projects
 app.get('/viewProjects', (req,res) =>{
@@ -89,7 +97,7 @@ app.get('/viewProjects', (req,res) =>{
 // Delete a project
 app.delete('/deleteProject/:id', (req,res)=>{
 	const idParam = req.params.id;
-	Project.findOne({_id:idParam}, (err,project)=>{
+	Project.findOne({project_id:idParam}, (err,project)=>{
 		if (project){
 			Project.deleteOne({_id:idParam}, err=>{
 				res.send('Project successfully deleted');
@@ -100,27 +108,7 @@ app.delete('/deleteProject/:id', (req,res)=>{
 	}).catch(err => res.send(err));
 });
 
-
-
-
-//register user
-app.get('/allUsers', (req,res)=>{
-	User.find().then(result =>{
-		res.send(result);
-	})
-});
-
-
-
-
-
-
-
-
-
-
+// DO NOT ADD CODE PAST THIS POINT
 
 //keep this always at the bottom so that you can see the errors reported
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-// DO NOT ADD CODE PAST THIS POINT!
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
