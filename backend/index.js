@@ -55,8 +55,8 @@ app.post('/registerProject' , (req,res) =>{
 		projectName : req.body.projectName,
 		projectBrief : req.body.projectBrief,
 		projectImage : req.body.projectImage,
-		projectLink : req.body.projectLink
-		// user_id : req.body.user_id
+		projectLink : req.body.projectLink,
+		user_id : req.body.user_id
 	});
 	// Pushes product to database
 	project.save().then(result =>{
@@ -73,7 +73,6 @@ app.patch('/updateProject/:id' , (req,res) =>{
 		// Updates the listed properties
 		const updateProject = {
 			projectName : req.body.projectName,
-			projectName : req.body.projectBrief,
 			projectBrief : req.body.projectBrief,
 			projectImage : req.body.projectImage,
 			projectLink : req.body.projectLink,
@@ -95,11 +94,11 @@ app.get('/viewProjects', (req,res) =>{
 });
 
 // Delete a project
-app.delete('/deleteProject/:id', (req,res)=>{
+app.delete('/deleteProject/:id', (req,res) =>{
 	const idParam = req.params.id;
-	Project.findOne({project_id:idParam}, (err,project)=>{
+	Project.findOne({project_id:idParam}, (err,project) =>{
 		if (project){
-			Project.deleteOne({_id:idParam}, err=>{
+			Project.deleteOne({_id:idParam}, err =>{
 				res.send('Project successfully deleted');
 			});
 		} else {
