@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 const config = require('./config.json');
-const product = require('./Products.json');
+// const product = require('./Projects.json');
 const Project = require('./models/projects.js');
 const User = require('./models/users.js'); 
 
@@ -45,10 +45,32 @@ app.post('/registerProject' , (req,res) =>{
 	const project = new Project({
 		project_id : new mongoose.types.objectId,
 		projectName : req.body.projectName,
-		projectBrief :
-		projectImage : projectImage,
-		projectLink : projectLink,
-		user_id : user_id
+		projectBrief : req.body.projectBrief,
+		projectImage : req.body.projectImage,
+		projectLink : req.body.projectLink,
+		// user_id : req.body.user_id
+	});
+	// Pushes product to database
+	product.save().then(result =>{
+		res.send(result);
+	}).catch(err =>res.send(err));
+});
+
+// Modifying a project
+app.patch('/updateProject/:id' , (req,res) =>{
+	// stores inputted project ID
+	const idParam = req.params.id;
+	// Finds the relating Project with the same id
+	Project.findById(idParam , (err,project) =>{
+		// Updates the listed properties
+		const updateProject = {
+			projectName : req.body.projectName,
+			projectName : req.body.projectBrief,
+			projectBrief : req.body.projectBrief,
+			projectImage : req.body.projectImage,
+			projectLink : req.body.projectLink,
+			user_id : req.body.user_id
+		}
 	});
 });
 
