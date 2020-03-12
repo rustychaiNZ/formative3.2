@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 // All files from public folder must be included
-//app.use(express.static('public'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => res.send('Your application is working fam!'));
 
