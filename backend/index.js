@@ -12,7 +12,7 @@ const User = require('./models/users.js');
 const port = 3000;
 
 // Connect to db
-const mongodbURI = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}.mongodb.net/shop?retryWrites=true&w=majority`;
+const mongodbURI = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}.mongodb.net/formative3?retryWrites=true&w=majority`;
 mongoose.connect(mongodbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> console.log('DB connected!'))
 .catch(err =>{
@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 // All files from public folder must be included
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
 app.get('/', (req, res) => res.send('Your application is working fam!'))
 
@@ -102,21 +102,32 @@ app.delete('/deleteProject/:id', (req,res)=>{
 
 
 
+//Vandy starts
+//Register users
+// app.post('/registerUser', (req, res)=>{
+//   //checking if user is found in the db already.
+//   User.findOne({username:req.body.username},(err, userResult)=>{
+//     if(userResult){
+//       res.send('username taken already, Please try another one')
+//     } else {
+//       const hash = bcryptjs.hashSync(req.body.password);
+//       const users = new User({
+//         _id : new mongoose.Types.ObjectId,
+//         username  : req.body.username,
+//         email : req.body.email,
+//         password  : hash
+//       });
+//       //Save to database and notify the user accordingly
+//       users.save().then(result =>{
+//         res.send(result);
+//       }).catch(err => res.send(err));
+//     }
+//   });
+// });
+//
+ });
 
-//register user
-app.get('/allUsers', (req,res)=>{
-	User.find().then(result =>{
-		res.send(result);
-	})
-});
-
-
-
-
-
-
-
-
+//Vandy ends
 
 
 
