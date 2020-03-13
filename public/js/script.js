@@ -39,7 +39,7 @@ if(sessionStorage[`userId`]){
 	console.log('no user logged in');
 }
 
-// Document ready fucntion starts
+// Document ready function starts
 $(document).ready(function(){
 
 	// Add a product
@@ -77,19 +77,47 @@ $(document).ready(function(){
  		}
 	});
 
-	// Delete a prject
-	fucntion deleteProjectBtnClick(){
+	// Delete a prject function
+	function deleteProjectBtnClick(){
 		$('.delete-project').on('click', function(){
 
 			let projectToDeleteId = this.id;
 
 			if(this.id === projectToDeleteId){
-				
+				$.ajax({
+					url : `${url}/deleteProject/${projectToDeleteId}`,
+					type : 'DELETE',
+					dataType : 'json',
+					success : function(){
+						console.log('project deleted');
+					},
+					error : function(){
+						console.log('error: cannot call api');
+					}
+				});
 			}
 		});
 	}
 
 	// Update a project
+	function updateProjectBtnClick(){
+		let projectToModify = this.id;
+		$('.update-project').on('click', function(){
+			if(this.id === projectToModify){
+				$.ajax({
+					url : `${url}/deleteProject/${projectToDeleteId}`,
+					type : ,
+					dataType : ,
+					success : function(){
+					
+					},
+					error : function(){
+					
+					}
+				});
+			}
+		});
+	}
 
 });
 // Document ready function ends
