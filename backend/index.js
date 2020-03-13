@@ -28,7 +28,7 @@ db.once('open', function() {
 
 app.use((req,res,next)=>{
 	console.log(`${req.method} request for ${req.url}`);
-	// Include this to go to the next middleware
+	// Include this to go to the next middleware 
 	next();
 });
 
