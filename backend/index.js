@@ -115,14 +115,14 @@ app.post('/registerUser', (req, res)=>{
 			res.send('username taken already, Please try another one');
 		} else {
 			const hash = bcryptjs.hashSync(req.body.password);
-			const users = new User({
+			const user = new User({
 				user_id : new mongoose.Types.ObjectId,
 				username  : req.body.username,
 				email : req.body.email,
 				password  : hash
 		  });
 		  //Save to database and notify the user accordingly
-			users.save().then(result =>{
+			user.save().then(result =>{
 				res.send(result);
 			}).catch(err => res.send(err));
 		}
