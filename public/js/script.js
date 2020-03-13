@@ -13,26 +13,34 @@ let projectBrief = '';
 let projectImage = '';
 let projectLink = '';
 
-// Document ready fucntion starts
+// Get url and prot from config.json
+$.ajax({
+	url : 'js/config.json',
+	type : 'GET',
+	dataType : 'json',
+	success : function(configData){
+		console.log(configData);
+		url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
+		console.log(url);
+	},
+	error : function(){
+		console.log('Failed to get url for mongoDB');
+	}
+});
+
+sessionStorage.setItem('userId', 23);
+console.log(sessionStorage);
+
+// create project button created dynamically
+if(sessionStorage[`userId`]){
+	document.getElementById('addProjectBtnContainer').innerHTML = 
+	`<button id="addProjectBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createProjectModal">Add Project</button>`;
+} else{
+	console.log('no user logged in');
+}
+
+// Document ready function starts
 $(document).ready(function(){
-
-	// Hides appropriate sections on boot of page
-	// $('#addProjectBtn').hide();
-
-	// Get url and prot from config.json
-	$.ajax({
-		url : 'js/config.json',
-		type : 'GET',
-		dataType : 'json',
-		success : function(configData){
-			console.log(configData);
-			url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-			console.log(url);
-		},
-		error : function(){
-			console.log('Failed to get url for mongoDB');
-		}
-	});
 
 	// Add a product
 	$('#registerProjectForm').submit(function(){
@@ -55,7 +63,9 @@ $(document).ready(function(){
  					projectBrief : projectBrief ,
  					projectImage : projectImage ,
  					projectLink : projectLink ,
- 					user_id : userId
+ 					projectImage : projectImage , 
+ 					projectLink : projectLink , 
+ 					user_id : sessionStorage.getItem(`userId`)
  				},
  				success : function(data){
 
@@ -69,14 +79,13 @@ $(document).ready(function(){
  		}
 	});
 
-
 	// View Project Cards
 	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
 
 	$('#  ').click(function(){
-
+    //
+    
 		if (  === projectUserId) {
-
 			$.ajax({
 				url : `${url}/viewProjects`,
 				type : 'GET',
@@ -107,6 +116,48 @@ $(document).ready(function(){
 			});
 		}
 	});
+  
+	// Delete a prject function
+	function deleteProjectBtnClick(){
+		$('.delete-project').on('click', function(){
+
+			let projectToDeleteId = this.id;
+
+			if(this.id === projectToDeleteId){
+				$.ajax({
+					url : `${url}/deleteProject/${projectToDeleteId}`,
+					type : 'DELETE',
+					dataType : 'json',
+					success : function(){
+						console.log('project deleted');
+					},
+					error : function(){
+						console.log('error: cannot call api');
+					}
+				});
+			}
+		});
+	}
+
+	// Update a project
+	function updateProjectBtnClick(){
+		let projectToModify = this.id;
+		$('.update-project').on('click', function(){
+			if(this.id === projectToModify){
+				$.ajax({
+					url : `${url}/deleteProject/${projectToDeleteId}`,
+					type : ,
+					dataType : ,
+					success : function(){
+					
+					},
+					error : function(){
+					
+					}
+				});
+			}
+		});
+	}
 
 });
 // Document ready function ends
