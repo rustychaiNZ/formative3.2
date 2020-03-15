@@ -175,40 +175,43 @@ $(document).ready(function(){
 	// View Project Cards
 	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
 
-	$('.user-nav').click(function(){
+	$('.nav-user').click(function(){
 	//
-	
-		if (  === projectUserId) {
-			$.ajax({
-				url : `${url}/viewProjects`,
-				type : 'GET',
-				dataType : 'json',
-				success : function(projectsFromMongo) {
-					console.log(projectsFromMongo);
+		let projectUserId = this.id;
+		$.ajax({
+			url : `${url}/viewProjects`,
+			type : 'GET',
+			dataType : 'json',
+			success : function(projectsFromMongo) {
+				console.log(projectsFromMongo);
 
-					document.getElementById('projectCards').innerHTML = "";
-					for (let i = 0; i < projectsFromMongo.length; i++) {
-						document.getElementById('projectCards').innerHTML +=
-						`<div class="card" style="width: 18rem;">
+				for (let i = 0; i < projectsFromMongo.length; i++) {
+					if(projectsFromMongo[i].user_id == projectUserId){
+						document.getElementById('printOut').innerHTML +=
+						`<div class=col-6>
+							<div class="card">
 								<img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
-
+						
 								<div class="card-body">
 									<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
 									<p class="card-text">${projectsFromMongo[i].projectBrief}</p>
 									<a id="${projectsFromMongo[i].project_id}" href="#" class="btn btn-primary">View More</a>
 								</div>
 								<div id="cardFooter" class="card-footer text-muted">
-
+						
 								</div>
+							</div>
 						</div>`;
 						createEditBtns();
 					}
-				}, //success
-				error:function(){
-					console.log('Error: Cannot call API');
 				}
-			});
-		}
+				deleteProjectBtnClick();
+				updateProjectBtnClick();
+			}, //success
+			error:function(){
+				console.log('Error: Cannot call API');
+			}
+		});
 	});
 	
 	// Delete a prject function
