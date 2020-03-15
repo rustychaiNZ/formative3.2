@@ -42,7 +42,7 @@ console.log(sessionStorage);
 
 // create project button created dynamically
 if(sessionStorage[`userId`]){
-	document.getElementById('addProjectBtnContainer').innerHTML = 
+	document.getElementById('addProjectBtnContainer').innerHTML =
 	`<button id="addProjectBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createProjectModal">Add Project</button>`;
 } else{
 	console.log('no user logged in');
@@ -118,7 +118,66 @@ $('#registerUserForm').submit(function(){
 });//submit function for registerForm
 
 
-
+/login
+$('#loginBtn').click(function(){
+  $('#loginForm').show();
+});
+$('#loginForm').submit(function(){
+  event.preventDefault();
+  let username = $('#username').val();
+  let password = $('#password').val();
+  console.log(username, password);
+  if (username == '' || password == ''){
+    alert('Please enter all details');
+  } else {
+  $.ajax({
+    url :`${url}/loginUser`,
+    type :'POST',
+    data:{
+      username : username,
+      password : password
+      },
+    success : function(user){
+      console.log(user);
+      if (user == 'user not found. Please register'){
+      alert('user not found. Please enter correct data or register a new user');
+      } else if (user == 'not authorized'){
+        alert('Please try with correct details');
+        $('#username').val('');
+        $('#password').val('');
+      } else{
+        $('#loginBtn').hide();
+        $('#loginForm').hide();
+        $('#registerBtn').hide();
+        $('#logoutBtn').show();
+        $('#manipulate').show();
+        $('#viewUserBtn').show();
+        sessionStorage.setItem('userID', user['_id']);
+        sessionStorage.setItem('userName',user['username']);
+        sessionStorage.setItem('userEmail',user['email']);
+        console.log(sessionStorage);
+      }
+    },//success
+    error:function(){
+      console.log('error: cannot call api');
+    }//error
+  });//ajax
+}//else
+});//submit function for login loginForm
+  //logout
+$('#logoutBtn').click(function(){
+  console.log('You are logged out');
+  sessionStorage.clear();
+  console.log(sessionStorage);
+  $('#manipulate').hide();
+  $('#loginBtn').show();
+  $('#logoutBtn').hide();
+  $('#registerBtn').show();
+  $('#viewUserBtn').hide();
+  $('#productForm').hide();
+  $('#addProductForm').hide();
+  $('#delForm').hide();
+});
 
 
 	// Add a product
@@ -142,8 +201,8 @@ $('#registerUserForm').submit(function(){
  					projectBrief : projectBrief ,
  					projectImage : projectImage ,
  					projectLink : projectLink ,
- 					projectImage : projectImage , 
- 					projectLink : projectLink , 
+ 					projectImage : projectImage ,
+ 					projectLink : projectLink ,
  					user_id : sessionStorage.getItem(`userId`)
  				},
  				success : function(data){
@@ -159,43 +218,43 @@ $('#registerUserForm').submit(function(){
 	});
 
 	// View Project Cards
-	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
+	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn
 
-	$('#  ').click(function(){
+	//$('#  ').click(function(){
     //
-    
-		if (  === projectUserId) {
-			$.ajax({
-				url : `${url}/viewProjects`,
-				type : 'GET',
-				dataType : 'json',
-				success : function(projectsFromMongo) {
-					console.log(projectsFromMongo);
 
-					document.getElementById('projectCards').innerHTML = "";
-					for (let i = 0; i < projectsFromMongo.length; i++) {
-						document.getElementById('projectCards').innerHTML +=
-						`<div class="card" style="width: 18rem;">
-							  <img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
+	// 	if (  === projectUserId) {
+	// 		$.ajax({
+	// 			url : `${url}/viewProjects`,
+	// 			type : 'GET',
+	// 			dataType : 'json',
+	// 			success : function(projectsFromMongo) {
+	// 				console.log(projectsFromMongo);
+	//
+	// 				document.getElementById('projectCards').innerHTML = "";
+	// 				for (let i = 0; i < projectsFromMongo.length; i++) {
+	// 					document.getElementById('projectCards').innerHTML +=
+	// 					`<div class="card" style="width: 18rem;">
+	// 						  <img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
+	//
+	// 							<div class="card-body">
+	// 								<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
+	// 								<p class="card-text">${   }</p>
+	// 								<a href="#           " class="btn btn-primary">View More</a>
+	// 						  </div>
+	// 							<div id="cardFooter" class="card-footer text-muted">
+	//
+	// 						  </div>
+	// 					 </div>`;
+	// 				}
+	// 			}, //success
+	// 			error:function(){
+	// 				console.log('Error: Cannot call API');
+	// 			}
+	// 		});
+	// 	}
+	// });
 
-								<div class="card-body">
-									<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
-									<p class="card-text">${   }</p>
-									<a href="#           " class="btn btn-primary">View More</a>
-							  </div>
-								<div id="cardFooter" class="card-footer text-muted">
-
-							  </div>
-						 </div>`;
-					}
-				}, //success
-				error:function(){
-					console.log('Error: Cannot call API');
-				}
-			});
-		}
-	});
-  
 	// Delete a prject function
 	function deleteProjectBtnClick(){
 		$('.delete-project').on('click', function(){
@@ -214,29 +273,29 @@ $('#registerUserForm').submit(function(){
 						console.log('error: cannot call api');
 					}
 				});
-			}
+			};
 		});
-	}
+	};
 
 	// Update a project
-	function updateProjectBtnClick(){
-		let projectToModify = this.id;
-		$('.update-project').on('click', function(){
-			if(this.id === projectToModify){
-				$.ajax({
-					url : `${url}/deleteProject/${projectToDeleteId}`,
-					type : ,
-					dataType : ,
-					success : function(){
-					
-					},
-					error : function(){
-					
-					}
-				});
-			}
-		});
-	}
+	// function updateProjectBtnClick(){
+	// 	let projectToModify = this.id;
+	// 	$('.update-project').on('click', function(){
+	// 		if(this.id === projectToModify){
+	// 			$.ajax({
+	// 				url : `${url}/deleteProject/${projectToDeleteId}`,
+	// 				type : ,
+	// 				dataType : ,
+	// 				success : function(){
+	//
+	// 				},
+	// 				error : function(){
+	//
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// }
 
 });
 // Document ready function ends
