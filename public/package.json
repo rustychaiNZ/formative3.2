@@ -1,17 +1,19 @@
 {
-  "name": "backend",
+  "name": "public",
   "version": "1.0.0",
   "description": "",
-  "main": "Gruntfiles.js",
+  "main": "Gruntfile.js",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "bootstrap": "^4.4.1",
     "grunt": "^1.0.4",
-    "mongoose": "^5.9.4"
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1"
   },
   "devDependencies": {
+    "grunt-contrib-csslint": "^2.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-uglify-es": "^3.3.0",
     "grunt-contrib-watch": "^1.1.0"

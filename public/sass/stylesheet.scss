@@ -1,0 +1,30 @@
+.page{
+	min-height: 100vh;
+	width: 100%;
+	padding: 0 10px;
+} 
+.fill-height{
+	min-height: 100vh;
+}
+.site-side-bar{
+	margin-left: -15px;
+}
+.row{
+	margin: 0;
+}
+.form-row{
+
+}
+
+
+@media (min-width: 576px){
+	.modal-dialog-register{
+		max-width: 900px;
+	}
+	.modal-dialog-login{
+		max-width: 700px;
+	}
+	.modal-dialog-new-project{
+		max-width: 1200px;
+	}
+} 
