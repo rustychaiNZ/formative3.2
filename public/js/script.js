@@ -1,11 +1,20 @@
 console.log(`Formative 3.2`);
+let url;
 
 // User (register & login) form variables
-let username = '';
-let email = '';
+let newUserName = '';
+let newEmail = '';
 let password = '';
-let enteredPassowrd = '';
-let confirmedPassword = '';
+let newPassword = '';
+let confirmPassword = '';
+
+function clearFields(){
+	// Register new user field
+	document.getElementById('newUserName').value = '';
+	document.getElementById('newEmail').value = '';
+	document.getElementById('newPassword').value = '';
+	document.getElementById('confirmPassword').value = '';
+}
 
 // Project form variables
 let projectName = '';
@@ -42,41 +51,151 @@ if(sessionStorage[`userId`]){
 // Document ready function starts
 $(document).ready(function(){
 
+//Register User
+
+$('#registerUserForm').submit(function(){
+
+    event.preventDefault();
+
+    let newUserName = $('#newUserName').val();
+    let newEmail = $('#newEmail').val();
+    let newPassword = $('#newPassword').val();
+		let confirmPassword = $('#confirmPassword').val();
+
+		// Validates to make sure that the user has entered the right password
+				if(newPassword !== confirmPassword){
+					alert('Please Make sure passwords match');
+				} else{
+
+					password = confirmPassword;
+
+    console.log(newUserName,newEmail, newPassword);
+
+		// Conditional statement that ensures that the user has filled out all of the fields.
+    // if (newUserName == '' || newEmail == '' || newPassword == ''){
+		if((username !== '') && (newEmail !== '') && (password !== '')){
+
+    //   alert('Please enter all details');
+    // } else {
+
+    $.ajax({
+      url :`${url}/registerUser`,
+      type :'POST',
+      data:{
+        username : newUserName,
+        email : newEmail,
+        password : newPassword
+        },
+
+      success : function(newUserFromMongo){
+        console.log(newUserFromMongo);
+        if (!(newUserFromMongo == 'username taken already. Please try another one')) {
+					alert('You are registered');
+					$('#loginUserModal').show();
+					$('#registerNewUserModal').hide();
+          //$('#loginUserBtn').show();
+          $('#registerNewUserBtn').hide();
+          $('#registerUserForm').hide();
+					clearFields();
+         } else {
+           alert('Congrats');
+          $('#newUserName').val('');
+          $('#newEmail').val('');
+          $('#newPassword').val('');
+        }
+      }, //success
+      error:function(newUserFromMongo){
+        console.log('Already an exsisting member');
+      }//error
+
+
+    });//ajax
+
+  } else {
+  	alert('Fillout all fields');
+  }
+}
+});//submit function for registerForm
+
+
+
+
+
 	// Add a product
 	$('#registerProjectForm').submit(function(){
 		event.preventDefault();
 		console.log('submit');
- 		
+
  		projectName = $('#newProjectName').val();
 		projectBrief = $('#projectBrief').val();
 		projectImage = $('#projectPicture').val();
 		projectLink = $('#projectExternalLink').val();
 		userId = '23';// sessionStorage.getItem('userId');
- 		
+
  		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
  			console.log('testing');
  			$.ajax({
  				url : `${url}/registerProject`,
  				type : 'POST',
- 				data : { 
+ 				data : {
  					projectName : projectName ,
  					projectBrief : projectBrief ,
+ 					projectImage : projectImage ,
+ 					projectLink : projectLink ,
  					projectImage : projectImage , 
  					projectLink : projectLink , 
  					user_id : sessionStorage.getItem(`userId`)
  				},
  				success : function(data){
- 		
- 				}, 
+
+ 				},
  				error : function(){
  					alert('error: ');
  				}
  			});
  		} else{
- 			alert('Please fill in all fields'); 
+ 			alert('Please fill in all fields');
  		}
 	});
 
+	// View Project Cards
+	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
+
+	$('#  ').click(function(){
+    //
+    
+		if (  === projectUserId) {
+			$.ajax({
+				url : `${url}/viewProjects`,
+				type : 'GET',
+				dataType : 'json',
+				success : function(projectsFromMongo) {
+					console.log(projectsFromMongo);
+
+					document.getElementById('projectCards').innerHTML = "";
+					for (let i = 0; i < projectsFromMongo.length; i++) {
+						document.getElementById('projectCards').innerHTML +=
+						`<div class="card" style="width: 18rem;">
+							  <img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
+
+								<div class="card-body">
+									<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
+									<p class="card-text">${   }</p>
+									<a href="#           " class="btn btn-primary">View More</a>
+							  </div>
+								<div id="cardFooter" class="card-footer text-muted">
+
+							  </div>
+						 </div>`;
+					}
+				}, //success
+				error:function(){
+					console.log('Error: Cannot call API');
+				}
+			});
+		}
+	});
+  
 	// Delete a prject function
 	function deleteProjectBtnClick(){
 		$('.delete-project').on('click', function(){
