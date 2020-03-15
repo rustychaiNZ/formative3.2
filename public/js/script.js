@@ -1,11 +1,20 @@
 console.log(`Formative 3.2`);
+let url;
 
 // User (register & login) form variables
-let username = '';
-let email = '';
+let newUserName = '';
+let newEmail = '';
 let password = '';
-let enteredPassowrd = '';
-let confirmedPassword = '';
+let newPassword = '';
+let confirmPassword = '';
+
+function clearFields(){
+	// Register new user field
+	document.getElementById('newUserName').value = '';
+	document.getElementById('newEmail').value = '';
+	document.getElementById('newPassword').value = '';
+	document.getElementById('confirmPassword').value = '';
+}
 
 // Project form variables
 let projectName = '';
@@ -41,6 +50,76 @@ if(sessionStorage[`userId`]){
 
 // Document ready function starts
 $(document).ready(function(){
+
+//Register User
+
+$('#registerUserForm').submit(function(){
+
+    event.preventDefault();
+
+    let newUserName = $('#newUserName').val();
+    let newEmail = $('#newEmail').val();
+    let newPassword = $('#newPassword').val();
+		let confirmPassword = $('#confirmPassword').val();
+
+		// Validates to make sure that the user has entered the right password
+				if(newPassword !== confirmPassword){
+					alert('Please Make sure passwords match');
+				} else{
+
+					password = confirmPassword;
+
+    console.log(newUserName,newEmail, newPassword);
+
+		// Conditional statement that ensures that the user has filled out all of the fields.
+    // if (newUserName == '' || newEmail == '' || newPassword == ''){
+		if((username !== '') && (newEmail !== '') && (password !== '')){
+
+    //   alert('Please enter all details');
+    // } else {
+
+    $.ajax({
+      url :`${url}/registerUser`,
+      type :'POST',
+      data:{
+        username : newUserName,
+        email : newEmail,
+        password : newPassword
+        },
+
+      success : function(newUserFromMongo){
+        console.log(newUserFromMongo);
+        if (!(newUserFromMongo == 'username taken already. Please try another one')) {
+					alert('You are registered');
+					$('#loginUserModal').show();
+					$('#registerNewUserModal').hide();
+          //$('#loginUserBtn').show();
+          $('#registerNewUserBtn').hide();
+          $('#registerUserForm').hide();
+					clearFields();
+         } else {
+           alert('Congrats');
+          $('#newUserName').val('');
+          $('#newEmail').val('');
+          $('#newPassword').val('');
+        }
+      }, //success
+      error:function(newUserFromMongo){
+        console.log('Already an exsisting member');
+      }//error
+
+
+    });//ajax
+
+  } else {
+  	alert('Fillout all fields');
+  }
+}
+});//submit function for registerForm
+
+
+
+
 
 	// Add a product
 	$('#registerProjectForm').submit(function(){
