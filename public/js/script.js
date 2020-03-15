@@ -53,13 +53,13 @@ $(document).ready(function(){
 
 //Register User
 
-$('#registerUserForm').submit(function(){
+	$('#registerUserForm').submit(function(){
 
-    event.preventDefault();
+	event.preventDefault();
 
-    let newUserName = $('#newUserName').val();
-    let newEmail = $('#newEmail').val();
-    let newPassword = $('#newPassword').val();
+	let newUserName = $('#newUserName').val();
+	let newEmail = $('#newEmail').val();
+	let newPassword = $('#newPassword').val();
 		let confirmPassword = $('#confirmPassword').val();
 
 		// Validates to make sure that the user has entered the right password
@@ -69,101 +69,110 @@ $('#registerUserForm').submit(function(){
 
 					password = confirmPassword;
 
-    console.log(newUserName,newEmail, newPassword);
+	console.log(newUserName,newEmail, newPassword);
 
 		// Conditional statement that ensures that the user has filled out all of the fields.
-    // if (newUserName == '' || newEmail == '' || newPassword == ''){
-		if((username !== '') && (newEmail !== '') && (password !== '')){
+	// if (newUserName == '' || newEmail == '' || newPassword == ''){
+	if((username !== '') && (newEmail !== '') && (password !== '')){
 
-    //   alert('Please enter all details');
-    // } else {
+	//   alert('Please enter all details');
+	// } else {
 
-    $.ajax({
-      url :`${url}/registerUser`,
-      type :'POST',
-      data:{
-        username : newUserName,
-        email : newEmail,
-        password : newPassword
-        },
+	$.ajax({
+	  url :`${url}/registerUser`,
+	  type :'POST',
+	  data:{
+		username : newUserName,
+		email : newEmail,
+		password : newPassword
+		},
 
-      success : function(newUserFromMongo){
-        console.log(newUserFromMongo);
-        if (!(newUserFromMongo == 'username taken already. Please try another one')) {
-					alert('You are registered');
-					$('#loginUserModal').show();
-					$('#registerNewUserModal').hide();
-          //$('#loginUserBtn').show();
-          $('#registerNewUserBtn').hide();
-          $('#registerUserForm').hide();
+	  success : function(newUserFromMongo){
+		console.log(newUserFromMongo);
+		if (!(newUserFromMongo == 'username taken already. Please try another one')) {
+			alert('You are registered');
+			$('#loginUserModal').show();
+			$('#registerNewUserModal').hide();
+		  //$('#loginUserBtn').show();
+			$('#registerNewUserBtn').hide();
+			$('#registerUserForm').hide();
 					clearFields();
-         } else {
-           alert('Congrats');
-          $('#newUserName').val('');
-          $('#newEmail').val('');
-          $('#newPassword').val('');
-        }
-      }, //success
-      error:function(newUserFromMongo){
-        console.log('Already an exsisting member');
-      }//error
+		 } else {
+		   alert('Congrats');
+		  $('#newUserName').val('');
+		  $('#newEmail').val('');
+		  $('#newPassword').val('');
+		}
+	  }, //success
+	  error:function(newUserFromMongo){
+		console.log('Already an exsisting member');
+	  }//error
 
 
-    });//ajax
+	});//ajax
 
   } else {
-  	alert('Fillout all fields');
+	alert('Fillout all fields');
   }
 }
 });//submit function for registerForm
-
-
-
-
 
 	// Add a product
 	$('#registerProjectForm').submit(function(){
 		event.preventDefault();
 		console.log('submit');
 
- 		projectName = $('#newProjectName').val();
+		projectName = $('#newProjectName').val();
 		projectBrief = $('#projectBrief').val();
 		projectImage = $('#projectPicture').val();
 		projectLink = $('#projectExternalLink').val();
 		userId = '23';// sessionStorage.getItem('userId');
 
- 		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
- 			console.log('testing');
- 			$.ajax({
- 				url : `${url}/registerProject`,
- 				type : 'POST',
- 				data : {
- 					projectName : projectName ,
- 					projectBrief : projectBrief ,
- 					projectImage : projectImage ,
- 					projectLink : projectLink ,
- 					projectImage : projectImage , 
- 					projectLink : projectLink , 
- 					user_id : sessionStorage.getItem(`userId`)
- 				},
- 				success : function(data){
+		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
+			console.log('testing');
+			$.ajax({
+				url : `${url}/registerProject`,
+				type : 'POST',
+				data : {
+					projectName : projectName ,
+					projectBrief : projectBrief ,
+					projectImage : projectImage ,
+					projectLink : projectLink ,
+					projectImage : projectImage , 
+					projectLink : projectLink , 
+					user_id : sessionStorage.getItem(`userId`)
+				},
+				success : function(data){
 
- 				},
- 				error : function(){
- 					alert('error: ');
- 				}
- 			});
- 		} else{
- 			alert('Please fill in all fields');
- 		}
+				},
+				error : function(){
+					alert('error: ');
+				}
+			});
+		} else{
+			alert('Please fill in all fields');
+		}
 	});
+
+	// Create card buttons for delete and modify
+	function createEditButtons(){
+		document.getElementById('cardFooter').innerHTML +=
+		`<div class="row">
+			<div class="col-6">
+				<button></button>
+			</div>
+			<div class="col-6">
+				<button></button>
+			</div>
+		</div>`;
+	}
 
 	// View Project Cards
 	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
 
 	$('#  ').click(function(){
-    //
-    
+	//
+	
 		if (  === projectUserId) {
 			$.ajax({
 				url : `${url}/viewProjects`,
