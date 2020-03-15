@@ -79,41 +79,41 @@ $(document).ready(function(){
 	// } else {
 
 	$.ajax({
-	  url :`${url}/registerUser`,
-	  type :'POST',
-	  data:{
+		url :`${url}/registerUser`,
+		type :'POST',
+		data:{
 		username : newUserName,
 		email : newEmail,
 		password : newPassword
 		},
 
-	  success : function(newUserFromMongo){
+		success : function(newUserFromMongo){
 		console.log(newUserFromMongo);
 		if (!(newUserFromMongo == 'username taken already. Please try another one')) {
 			alert('You are registered');
 			$('#loginUserModal').show();
 			$('#registerNewUserModal').hide();
-		  //$('#loginUserBtn').show();
+			//$('#loginUserBtn').show();
 			$('#registerNewUserBtn').hide();
 			$('#registerUserForm').hide();
 					clearFields();
 		 } else {
-		   alert('Congrats');
-		  $('#newUserName').val('');
-		  $('#newEmail').val('');
-		  $('#newPassword').val('');
+			 alert('Congrats');
+			$('#newUserName').val('');
+			$('#newEmail').val('');
+			$('#newPassword').val('');
 		}
-	  }, //success
-	  error:function(newUserFromMongo){
+		}, //success
+		error:function(newUserFromMongo){
 		console.log('Already an exsisting member');
-	  }//error
+		}//error
 
 
 	});//ajax
 
-  } else {
+	} else {
 	alert('Fillout all fields');
-  }
+	}
 }
 });//submit function for registerForm
 
@@ -155,22 +155,27 @@ $(document).ready(function(){
 	});
 
 	// Create card buttons for delete and modify
-	function createEditButtons(){
+	function createEditBtns(){
+
+		let loggedUser = sessionStorage['userId'];
+		if(sessionStorage['userId'] == loggedUser){
+		
 		document.getElementById('cardFooter').innerHTML +=
-		`<div class="row">
-			<div class="col-6">
-				<button></button>
-			</div>
-			<div class="col-6">
-				<button></button>
-			</div>
-		</div>`;
+			`<div class="row">
+				<div class="col-6">
+					<button id="${projectsFromMongo[i].project_id}" class="btn btn-block btn-primary project-update">Update</button>
+				</div>
+				<div class="col-6">
+					<button id="${projectsFromMongo[i].project_id}" class="btn btn-block btn-danger project-delete">Delete</button>
+				</div>
+			</div>`;
+		}
 	}
 
 	// View Project Cards
 	// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn 
 
-	$('#  ').click(function(){
+	$('.user-nav').click(function(){
 	//
 	
 		if (  === projectUserId) {
@@ -185,17 +190,18 @@ $(document).ready(function(){
 					for (let i = 0; i < projectsFromMongo.length; i++) {
 						document.getElementById('projectCards').innerHTML +=
 						`<div class="card" style="width: 18rem;">
-							  <img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
+								<img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
 
 								<div class="card-body">
 									<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
-									<p class="card-text">${   }</p>
-									<a href="#           " class="btn btn-primary">View More</a>
-							  </div>
+									<p class="card-text">${projectsFromMongo[i].projectBrief}</p>
+									<a id="${projectsFromMongo[i].project_id}" href="#" class="btn btn-primary">View More</a>
+								</div>
 								<div id="cardFooter" class="card-footer text-muted">
 
-							  </div>
-						 </div>`;
+								</div>
+						</div>`;
+						createEditBtns();
 					}
 				}, //success
 				error:function(){
@@ -204,7 +210,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-  
+	
 	// Delete a prject function
 	function deleteProjectBtnClick(){
 		$('.delete-project').on('click', function(){
