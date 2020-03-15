@@ -34,38 +34,71 @@ $(document).ready(function(){
 		}
 	});
 
+
+
+
+
+
+
+	//view users
+	    $('#viewUserBtn').click(function(){
+				$.ajax({
+	 				url : `${url}/registerProject`,
+	 				type : 'POST',
+	 				data : {
+	 					projectName : projectName ,
+	 					projectBrief : projectBrief ,
+	 					projectImage : projectImage ,
+	 					projectLink : projectLink ,
+	 					user_id : userId
+
+	        },//success
+	        error:function(){
+	          console.log('error: cannot call api');
+	        }//error
+	      });//ajax
+	    });//viewUser button
+
+
+
+
+
+
+
+
+
 	// Add a product
 	$('#registerProjectForm').submit(function(){
 		event.preventDefault();
 		console.log('submit');
- 		
+
  		projectName = $('#newProjectName').val();
 		projectBrief = $('#projectBrief').val();
 		projectImage = $('#projectPicture').val();
 		projectLink = $('#projectExternalLink').val();
 		userId = '23';// sessionStorage.getItem('userId');
- 		
+
  		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
  			console.log('testing');
  			$.ajax({
  				url : `${url}/registerProject`,
  				type : 'POST',
- 				data : { 
+ 				data : {
  					projectName : projectName ,
  					projectBrief : projectBrief ,
- 					projectImage : projectImage , 
- 					projectLink : projectLink , 
+ 					projectImage : projectImage ,
+ 					projectLink : projectLink ,
  					user_id : userId
  				},
  				success : function(data){
- 		
- 				}, 
+
+ 				},
  				error : function(){
  					alert('error: ');
  				}
  			});
  		} else{
- 			alert('Please fill in all fields'); 
+ 			alert('Please fill in all fields');
  		}
 	});
 
