@@ -37,7 +37,7 @@ $.ajax({
 	}
 });
 
-sessionStorage.setItem('userId', 23);
+// sessionStorage.setItem('userId', 23);
 console.log(sessionStorage);
 
 // create project button created dynamically
@@ -55,105 +55,112 @@ $(document).ready(function(){
 
 	$('#registerUserForm').submit(function(){
 
-	event.preventDefault();
-
-	let newUserName = $('#newUserName').val();
-	let newEmail = $('#newEmail').val();
-	let newPassword = $('#newPassword').val();
+		event.preventDefault();
+	
+		let newUserName = $('#newUserName').val();
+		let newEmail = $('#newEmail').val();
+		let newPassword = $('#newPassword').val();
 		let confirmPassword = $('#confirmPassword').val();
 
 		// Validates to make sure that the user has entered the right password
-				if(newPassword !== confirmPassword){
-					alert('Please Make sure passwords match');
-				} else{
+		if(newPassword !== confirmPassword){
+			alert('Please Make sure passwords match');
+		} else{
 
-					password = confirmPassword;
+			password = confirmPassword;
 
-	console.log(newUserName,newEmail, newPassword);
+		console.log(newUserName,newEmail, newPassword);
 
 		// Conditional statement that ensures that the user has filled out all of the fields.
-	// if (newUserName == '' || newEmail == '' || newPassword == ''){
-	if((username !== '') && (newEmail !== '') && (password !== '')){
+		// if (newUserName == '' || newEmail == '' || newPassword == ''){
+		if((username !== '') && (newEmail !== '') && (password !== '')){
 
-	//   alert('Please enter all details');
-	// } else {
-
-	$.ajax({
-		url :`${url}/registerUser`,
-		type :'POST',
-		data:{
-		username : newUserName,
-		email : newEmail,
-		password : newPassword
+		//   alert('Please enter all details');
+		// } else {
+	
+		$.ajax({
+			url :`${url}/registerUser`,
+			type :'POST',
+			data:{
+			username : newUserName,
+			email : newEmail,
+			password : newPassword
 		},
 
 		success : function(newUserFromMongo){
-		console.log(newUserFromMongo);
-		if (!(newUserFromMongo == 'username taken already. Please try another one')) {
-			alert('You are registered');
-			$('#loginUserModal').show();
-			$('#registerNewUserModal').hide();
-			//$('#loginUserBtn').show();
-			$('#registerNewUserBtn').hide();
-			$('#registerUserForm').hide();
-					clearFields();
-		 } else {
-			 alert('Congrats');
-			$('#newUserName').val('');
-			$('#newEmail').val('');
-			$('#newPassword').val('');
-		}
+			console.log(newUserFromMongo);
+			if (!(newUserFromMongo == 'username taken already. Please try another one')) {
+				alert('You are registered');
+				$('#loginUserModal').show();
+				$('#registerNewUserModal').hide();
+				//$('#loginUserBtn').show();
+				$('#registerNewUserBtn').hide();
+				$('#registerUserForm').hide();
+				clearFields();
+			 } else {
+				alert('Congrats');
+				$('#newUserName').val('');
+				$('#newEmail').val('');
+				$('#newPassword').val('');
+			}
 		}, //success
 		error:function(newUserFromMongo){
-		console.log('Already an exsisting member');
+			console.log('Already an exsisting member');
 		}//error
+	});
 
 //login
-$('#loginBtn').click(function(){
-  $('#loginForm').show();
-});
-$('#loginForm').submit(function(){
-  event.preventDefault();
-  let username = $('#username').val();
-  let password = $('#password').val();
-  console.log(username, password);
-  if (username == '' || password == ''){
-    alert('Please enter all details');
-  } else {
-  $.ajax({
-    url :`${url}/loginUser`,
-    type :'POST',
-    data:{
-      username : username,
-      password : password
-      },
-    success : function(user){
-      console.log(user);
-      if (user == 'user not found. Please register'){
-      alert('user not found. Please enter correct data or register a new user');
-      } else if (user == 'not authorized'){
-        alert('Please try with correct details');
-        $('#username').val('');
-        $('#password').val('');
-      } else{
-        $('#loginBtn').hide();
-        $('#loginForm').hide();
-        $('#registerBtn').hide();
-        $('#logoutBtn').show();
-        $('#manipulate').show();
-        $('#viewUserBtn').show();
-        sessionStorage.setItem('userID', user['_id']);
-        sessionStorage.setItem('userName',user['username']);
-        sessionStorage.setItem('userEmail',user['email']);
-        console.log(sessionStorage);
-      }
-    },//success
-    error:function(){
-      console.log('error: cannot call api');
-    }//error
-  });//ajax
-}//else
-});//submit function for login loginForm
+	$('#loginBtn').click(function(){
+		$('#loginForm').show();
+	});
+	$('#loginForm').submit(function(){
+		event.preventDefault();
+		
+		let username = $('#username').val();
+		let password = $('#password').val();
+		console.log(username, password);
+
+		if (username == '' || password == ''){
+			alert('Please enter all details');
+		} else {
+
+			$.ajax({
+				url :`${url}/loginUser`,
+				type :'POST',
+				data:{
+					username : username,
+					password : password
+				},
+	
+			  success : function(user){
+	
+			    console.log(user);
+	
+				if (user == 'user not found. Please register'){
+				alert('user not found. Please enter correct data or register a new user');
+			    } else if (user == 'not authorized'){
+					alert('Please try with correct details');
+					$('#username').val('');
+					$('#password').val('');
+			    } else{
+					$('#loginBtn').hide();
+					$('#loginForm').hide();
+					$('#registerBtn').hide();
+					$('#logoutBtn').show();
+					$('#manipulate').show();
+					$('#viewUserBtn').show();
+					sessionStorage.setItem('userID', user['_id']);
+					sessionStorage.setItem('userName',user['username']);
+					sessionStorage.setItem('userEmail',user['email']);
+					console.log(sessionStorage);
+			    }
+			  },//success
+			  error:function(){
+				console.log('error: cannot call api');
+			  }// error
+			});// ajax
+		}// else
+	});// submit function for login loginForm
   //logout
 $('#logoutBtn').click(function(){
   console.log('You are logged out');
@@ -296,14 +303,14 @@ $('#logoutBtn').click(function(){
 	};
 
 	// Update a project
-	 function updateProjectBtnClick(){
+	function updateProjectBtnClick(){
 	 	let projectToModify = this.id;
 	 	$('.update-project').on('click', function(){
 	 		if(this.id === projectToModify){
 	 			$.ajax({
 	 				url : `${url}/deleteProject/${projectToDeleteId}`,
-	 				type : ,
-	 				dataType : ,
+	 				type : 'PATCH',
+	 				dataType : 'json',
 	 				success : function(){
 	
 	 				},
@@ -313,7 +320,7 @@ $('#logoutBtn').click(function(){
 	 			});
 	 		}
 	 	});
-  }
+	}
 
 });
 // Document ready function ends
