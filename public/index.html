@@ -27,6 +27,8 @@
 					<button type="button" class="list-group-item list-group-item-action">Rahul</button>
 					<button type="button" class="list-group-item list-group-item-action">Russell</button>
 				</div>
+				<br>
+
 				<!-- Navigation bar ends -->
 
 				<!-- login and register container -->
@@ -101,10 +103,10 @@
 				<div class="modal-content">
 					<div class="modal-content">
 						<!-- Header -->
-						<div class="modal-header bg-dark">
+						<div class="modal-header">
 							<h4 class="text-light">Register New User</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span class="text-light" aria-hidden="true">&times;</span>
+								<span class="text-light modal-close" aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<!-- Header end -->
@@ -114,7 +116,7 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="newUserName">User Name:</label>
+										<label for="newUserName">User Name</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
@@ -125,7 +127,7 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="newEmail">Email Address:</label>
+										<label for="newEmail">Email Address</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
@@ -147,7 +149,7 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="newPassword">Password:</label>
+										<label for="newPassword">Password</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
@@ -158,7 +160,7 @@
 								<div class="row my-3">
 									<!-- Label -->
 									<div class="col-3">
-										<label for="confirmPassword">Confirm Password:</label>
+										<label for="confirmPassword">Confirm Password</label>
 									</div>
 									<!-- Field -->
 									<div class="col-9">
@@ -167,7 +169,7 @@
 								</div>
 							</div>
 							<!-- Modal footer -->
-							<div class="modal-footer bg-light">
+							<div class="modal-footer">
 								<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-lg btn-success">Submit</button>
 							</div>
@@ -183,10 +185,10 @@
 			<div class="modal-dialog modal-dialog-centered modal-dialog-login" role="document">
 				<div class="modal-content">
 					<!-- Modal header -->
-					<div class="modal-header bg-dark">
+					<div class="modal-header">
 						<h4 class="text-light">Login</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span class="text-light" aria-hidden="true">&times;</span>
+							<span class="text-light modal-close" aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<form id="loginForm">
@@ -195,12 +197,13 @@
 								<div class="col-12">
 									<label for="username" class="">Username:</label>
 									<input type="text" id="username" name="username" class="form-control" placeholder="username">
+									<br>
 									<label for="password"> Password: </label>
 									<input type="password" name="password" id="password" class="form-control" placeholder="password">
 								</div>
 						</div>
 						<!-- Modal footer -->
-						<div class="modal-footer bg-light">
+						<div class="modal-footer">
 							<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-lg btn-success">Submit</button>
 						</div>
