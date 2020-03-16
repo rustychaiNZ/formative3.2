@@ -56,7 +56,7 @@ $(document).ready(function(){
 	$('#registerUserForm').submit(function(){
 
 		event.preventDefault();
-	
+
 		let newUserName = $('#newUserName').val();
 		let newEmail = $('#newEmail').val();
 		let newPassword = $('#newPassword').val();
@@ -78,7 +78,7 @@ $(document).ready(function(){
 
 		//   alert('Please enter all details');
 		// } else {
-	
+
 			$.ajax({
 				url :`${url}/registerUser`,
 				type :'POST',
@@ -87,7 +87,7 @@ $(document).ready(function(){
 				email : newEmail,
 				password : newPassword
 			},
-	
+
 				success : function(newUserFromMongo){
 				console.log(newUserFromMongo);
 				if (newUserFromMongo !== 'username taken already. Please try another one') {
@@ -118,7 +118,7 @@ $(document).ready(function(){
 	});
 	$('#loginForm').submit(function(){
 		event.preventDefault();
-		
+
 		let username = $('#username').val();
 		let password = $('#password').val();
 		console.log(username, password);
@@ -134,11 +134,11 @@ $(document).ready(function(){
 					username : username,
 					password : password
 				},
-	
+
 				success : function(user){
-	
+
 			    console.log(user);
-	
+
 				if (user == 'User is not found. Please register'){
 				alert('user not found. Please enter correct data or register a new user');
 			    } else if (user == 'not authorized'){
@@ -157,7 +157,7 @@ $(document).ready(function(){
 					sessionStorage.setItem('userEmail',user['email']);
 					console.log(sessionStorage);
 			    }
-			    document.getElementById('logoutUserBtnContainer').innerHTML = 
+			    document.getElementById('logoutUserBtnContainer').innerHTML =
 			    `<button class="btn btn-danger btn-block">Logout</button>`
 			  },//success
 			  error:function(){
@@ -175,23 +175,28 @@ $(document).ready(function(){
 	});//submit function for registerForm
 
 	// Displays all of the users as navigation menu
-	// $.ajax({
-		// url : `${url}/viewUsers`,
-		// type : 'GET',
-		// dataType : 'json',
-		// success : function(usersFromMongo){
-			// console.log(usersFromMongo);
-			// for(var i = 0; i < usersFromMongo.length; i++){
-				// document.getElementById('').innerHTML +=
-			// }
-		// },
-		// error : function(){
-			// console.log('error: cannot call api');
-		// }
-	// });
+	//display users dynamically on nav.
+		// function viewUsers(){
+		// document.getElementById('navContainer').innerHTML = '';
+	$.ajax({
+		url : `${url}/viewUsers`,
+		type : 'GET',
+		dataType : 'json',
+		success : function(usersFromMongo){
+			console.log(usersFromMongo);
+			document.getElementById('printOut').innerHTML = "";
+			for(var i = 0; i < usersFromMongo.length; i++){
+				document.getElementById('printOut').innerHTML
+				+= '<div class="col">'
+				+  '</div>';
+			}
+		},
+		error : function(){
+			console.log('error: cannot call api');
+		}
 
-
-
+	});
+//};
 
 
 	// Gets user's from data base for navigation
@@ -231,17 +236,17 @@ $(document).ready(function(){
 		userIdMemory = sessionStorage.getItem('userId');
 
 		if((projectNameMemory !== '') && (projectBriefMemory !== '') && (projectImageMemory !== '') && (projectLinkMemory !== '')){
-			
+
 			console.log('testing');
-			
+
 			$.ajax({
 				url : `${url}/registerProject`,
 				type : 'POST',
 				data : {
 					projectName : projectNameMemory ,
 					projectBrief : projectBriefMemory ,
-					projectImage : projectImageMemory , 
-					projectLink : projectLinkMemory , 
+					projectImage : projectImageMemory ,
+					projectLink : projectLinkMemory ,
 					user_id : userIdMemory
 				},
 				success : function(data){
@@ -261,7 +266,7 @@ $(document).ready(function(){
 
 		let loggedUser = sessionStorage['userId'];
 		if(sessionStorage['userId'] == loggedUser){
-		
+
 		document.getElementById('cardFooter').innerHTML +=
 			`<div class="row">
 				<div class="col-6">
@@ -293,14 +298,14 @@ $(document).ready(function(){
 						`<div class=col-6>
 							<div class="card">
 								<img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
-						
+
 								<div class="card-body">
 									<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
 									<p class="card-text">${projectsFromMongo[i].projectBrief}</p>
 									<a id="${projectsFromMongo[i].project_id}" href="#" class="btn btn-primary">View More</a>
 								</div>
 								<div id="cardFooter" class="card-footer text-muted">
-						
+
 								</div>
 							</div>
 						</div>`;
@@ -315,7 +320,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-  
+
 	// Delete a prject function
 	function deleteProjectBtnClick(){
 		$('.delete-project').on('click', function(){
@@ -348,10 +353,10 @@ $(document).ready(function(){
 	 				type : 'PATCH',
 	 				dataType : 'json',
 	 				success : function(){
-	
+
 	 				},
 	 				error : function(){
-	
+
 	 				}
 	 			});
 	 		}

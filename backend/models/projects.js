@@ -2,12 +2,13 @@
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-	project_id : mongoose.Schema.Types.ObjectId, 
+	project_id : mongoose.Schema.Types.ObjectId,
 	projectName : String ,
 	projectBrief : String ,
 	projectImage : String ,
 	projectLink : String ,
-	user_id : String//{
+	user_id : String
+	//{
 		//type : mongoose.Schema.Types.ObjectId,
 		// ref : 'User'
 	//}

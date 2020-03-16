@@ -5,6 +5,13 @@
   /* background: rgb(0,48,65); */
 }
 
+.page-style {
+  background: #042530;
+  background: -moz-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: -webkit-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#042530",endColorstr="#3b5b85",GradientType=1);
+}
 
 .fill-height {
   min-height: 100vh;
@@ -35,5 +42,6 @@
     max-width: 1200px;
   }
 }
+/*# sourceMappingURL=stylesheet.css.map */
 
 /*# sourceMappingURL=stylesheet.css.map */
