@@ -17,10 +17,10 @@ function clearFields(){
 }
 
 // Project form variables
-let projectName = '';
-let projectBrief = '';
-let projectImage = '';
-let projectLink = '';
+let projectNameMemory = '';
+let projectBriefMemory = '';
+let projectImageMemory = '';
+let projectLinkMemory = '';
 
 // Get url and prot from config.json
 $.ajax({
@@ -40,16 +40,16 @@ $.ajax({
 
 console.log(sessionStorage);
 
-// create project button created dynamically
-if(sessionStorage[`userId`]){
-	document.getElementById('addProjectBtnContainer').innerHTML =
-	`<button id="addProjectBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createProjectModal">Add Project</button>`;
-} else{
-	console.log('no user logged in');
-}
-
 // Document ready function starts
 $(document).ready(function(){
+
+	// create project button created dynamically
+	if(sessionStorage['userId']){
+		document.getElementById('addProjectBtnContainer').innerHTML =
+		`<button id="addProjectBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createProjectModal">Add Project</button>`;
+	} else{
+		console.log('no user logged in');
+	}
 
 //Register User
 
@@ -135,11 +135,11 @@ $(document).ready(function(){
 					password : password
 				},
 	
-			  success : function(user){
+				success : function(user){
 	
 			    console.log(user);
 	
-				if (user == 'user not found. Please register'){
+				if (user == 'User is not found. Please register'){
 				alert('user not found. Please enter correct data or register a new user');
 			    } else if (user == 'not authorized'){
 					alert('Please try with correct details');
@@ -224,31 +224,31 @@ $(document).ready(function(){
 		event.preventDefault();
 		console.log('submit');
 
- 		projectName = $('#newProjectName').val();
-		projectBrief = $('#projectBrief').val();
-		projectImage = $('#projectPicture').val();
-		projectLink = $('#projectExternalLink').val();
-		userId = sessionStorage.getItem('userId');
+ 		projectNameMemory = $('#newProjectName').val();
+		projectBriefMemory = $('#projectBrief').val();
+		projectImageMemory = $('#projectPicture').val();
+		projectLinkMemory = $('#projectExternalLink').val();
+		userIdMemory = sessionStorage.getItem('userId');
 
-		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
+		if((projectNameMemory !== '') && (projectBriefMemory !== '') && (projectImageMemory !== '') && (projectLinkMemory !== '')){
+			
 			console.log('testing');
+			
 			$.ajax({
 				url : `${url}/registerProject`,
 				type : 'POST',
 				data : {
-					projectName : projectName ,
-					projectBrief : projectBrief ,
-					projectImage : projectImage ,
-					projectLink : projectLink ,
-					projectImage : projectImage , 
-					projectLink : projectLink , 
-					user_id : sessionStorage.getItem(`userId`)
+					projectName : projectNameMemory ,
+					projectBrief : projectBriefMemory ,
+					projectImage : projectImageMemory , 
+					projectLink : projectLinkMemory , 
+					user_id : userIdMemory
 				},
 				success : function(data){
-
+					console.log(data);
 				},
 				error : function(){
-					alert('error: ');
+					console.log('error: ');
 				}
 			});
 		} else{
