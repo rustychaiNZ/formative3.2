@@ -192,7 +192,7 @@ $(document).ready(function(){
 					$('#password').val('');
 			    } else{
 			    	$('#loginUserModal').modal('hide');
-					sessionStorage.setItem('userID', user['_id']);
+					sessionStorage.setItem('userID', user['user_id']);
 					sessionStorage.setItem('userName',user['username']);
 					sessionStorage.setItem('userEmail',user['email']);
 					console.log(sessionStorage);
@@ -337,6 +337,7 @@ $(document).ready(function(){
 		$('.nav-user').click(function(){
 		//
 			let projectUserId = this.id;
+
 			$.ajax({
 				url : `${url}/viewProjects`,
 				type : 'GET',
@@ -346,7 +347,6 @@ $(document).ready(function(){
 					
 					// Displays all project cards
 					for (let i = 0; i < projects.length; i++) {
-						console.log(projects[i].user_id);
 						if(projects[i].user_id == projectUserId){
 							document.getElementById('printOut').innerHTML +=
 							`<div class=col-6>
