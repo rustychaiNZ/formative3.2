@@ -2,7 +2,9 @@
   min-height: 100vh;
   width: 100%;
   padding: 0 10px;
+  /* background: rgb(0,48,65); */
 }
+
 
 .fill-height {
   min-height: 100vh;
@@ -14,6 +16,10 @@
 
 .row {
   margin: 0;
+}
+
+.welcome-page {
+  padding: 2em 3em 0 1em;
 }
 
 @media (min-width: 576px) {
