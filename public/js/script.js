@@ -183,16 +183,50 @@ $('#logoutBtn').click(function(){
 }
 });//submit function for registerForm
 
+
+
+
+
+
+
+	// Gets user's from data base for navigation
+		$.ajax({
+			url : `${url}/registerProject`,
+			type : 'POST',
+			data : {
+			projectName : projectName ,
+			projectBrief : projectBrief ,
+			projectImage : projectImage ,
+			projectLink : projectLink ,
+			user_id : userId
+			},
+			success : function(data){
+
+			}, // success end
+			error:function(){
+				console.log('error: cannot call api');
+			}// error
+		});// ajax
+	});// viewUser button
+
+
+
+
+
+
+
+
+
 	// Add a product
 	$('#registerProjectForm').submit(function(){
 		event.preventDefault();
 		console.log('submit');
 
-		projectName = $('#newProjectName').val();
+ 		projectName = $('#newProjectName').val();
 		projectBrief = $('#projectBrief').val();
 		projectImage = $('#projectPicture').val();
 		projectLink = $('#projectExternalLink').val();
-		userId = '23';// sessionStorage.getItem('userId');
+		userId = sessionStorage.getItem('userId');
 
 		if((projectName !== '') && (projectBrief !== '') && (projectImage !== '') && (projectLink !== '')){
 			console.log('testing');
@@ -278,7 +312,6 @@ $('#logoutBtn').click(function(){
 				console.log('Error: Cannot call API');
 			}
 		});
-	});
   
 	// Delete a prject function
 	function deleteProjectBtnClick(){
