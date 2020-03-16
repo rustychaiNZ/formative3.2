@@ -265,7 +265,7 @@ $(document).ready(function(){
 										<p class="card-text">${projects[i].projectBrief}</p>
 										<button id="${projects[i].project_id}" class="btn btn-block btn-primary project-view-more">View More</button>
 									</div>
-									<div id="${projects[i].user_id}cardFooter" class="card-footer">
+									<div id="${projects[i].project_id}cardFooter" class="card-footer">
 							
 									</div>
 								</div>
@@ -274,17 +274,18 @@ $(document).ready(function(){
 							// Conditional statement that adds 
 							if(sessionStorage.getItem('userID') === projectUserId){
 								console.log('nah ah');
-								var footerId = projects[i].user_id + 'cardFooter';
+								var footerId = projects[i].project_id + 'cardFooter';
+								console.log(footerId);
 								let loggedUser = sessionStorage.getItem('userId');
-								document.getElementById(footerId).innerHTML =
-								`<div class="row">
-									<div class="col-6">
-										<button id="${projects[i].project_id}" class="btn btn-block btn-primary project-update">Update</button>
-									</div>
-									<div class="col-6">
-										<button id="${projects[i].project_id}" class="btn btn-block btn-danger project-delete">Delete</button>
-									</div>
-								</div>`;
+									document.getElementById(footerId).innerHTML =
+									`<div class="row">
+										<div class="col-6">
+											<button id="${projects[i].project_id}" class="btn btn-block btn-primary project-update">Update</button>
+										</div>
+										<div class="col-6">
+											<button id="${projects[i].project_id}" class="btn btn-block btn-danger project-delete">Delete</button>
+										</div>
+									</div>`;
 							} else{
 								console.log('hmmm');
 							}
