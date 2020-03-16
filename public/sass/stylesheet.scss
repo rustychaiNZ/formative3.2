@@ -1,45 +1,50 @@
 .page {
-  min-height: 100vh;
-  width: 100%;
-  padding: 0 10px;
-  /* background: rgb(0,48,65); */
+	min-height: 100vh;
+	width: 100%;
+	padding: 0 10px;
+	/* background: rgb(0,48,65); */
 }
 
 .page-style {
-  background: rgb(4,37,48);
-  background: -moz-linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
-  background: -webkit-linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
-  background: linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#042530",endColorstr="#3b5b85",GradientType=1);}
+	background: rgb(4,37,48);
+	background: -moz-linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
+	background: -webkit-linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
+	background: linear-gradient(164deg, rgba(4,37,48,1) 29%, rgba(59,91,133,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#042530",endColorstr="#3b5b85",GradientType=1);}
 
 .fill-height {
-  min-height: 100vh;
+	min-height: 100vh;
 }
 
 .site-side-bar {
-  margin-left: -15px;
+	margin-left: -15px;
 }
 
 .row {
-  margin: 0;
+	margin: 0;
 }
 
 .welcome-page {
-  padding: 2em 3em 0 1em;
+	padding: 2em 3em 0 1em;
+}
+
+.nav-users{
+	max-height: 50vh;
+	overflow: auto;
 }
 
 @media (min-width: 576px) {
-  .modal-dialog-register {
-    max-width: 900px;
-  }
+	.modal-dialog-register {
+		max-width: 900px;
+	}
 
-  .modal-dialog-login {
-    max-width: 700px;
-  }
+	.modal-dialog-login {
+		max-width: 700px;
+	}
 
-  .modal-dialog-new-project {
-    max-width: 1200px;
-  }
+	.modal-dialog-new-project {
+		max-width: 1200px;
+	}
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

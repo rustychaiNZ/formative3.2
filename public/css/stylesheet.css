@@ -29,6 +29,11 @@
   padding: 2em 3em 0 1em;
 }
 
+.nav-users {
+  max-height: 50vh;
+  overflow: auto;
+}
+
 @media (min-width: 576px) {
   .modal-dialog-register {
     max-width: 900px;
