@@ -37,7 +37,7 @@ $.ajax({
 	}
 });
 
-// sessionStorage.setItem('userId', 23);
+
 console.log(sessionStorage);
 
 // create project button created dynamically
@@ -68,6 +68,7 @@ $(document).ready(function(){
 		} else{
 
 			password = confirmPassword;
+		}
 
 		console.log(newUserName,newEmail, newPassword);
 
@@ -78,35 +79,37 @@ $(document).ready(function(){
 		//   alert('Please enter all details');
 		// } else {
 	
-		$.ajax({
-			url :`${url}/registerUser`,
-			type :'POST',
-			data:{
-			username : newUserName,
-			email : newEmail,
-			password : newPassword
-		},
-
-		success : function(newUserFromMongo){
-			console.log(newUserFromMongo);
-			if (!(newUserFromMongo == 'username taken already. Please try another one')) {
-				alert('You are registered');
-				$('#loginUserModal').show();
-				$('#registerNewUserModal').hide();
-				//$('#loginUserBtn').show();
-				$('#registerNewUserBtn').hide();
-				$('#registerUserForm').hide();
-				clearFields();
-			 } else {
-				alert('Congrats');
-				$('#newUserName').val('');
-				$('#newEmail').val('');
-				$('#newPassword').val('');
-			}
-		}, //success
-		error:function(newUserFromMongo){
-			console.log('Already an exsisting member');
-		}//error
+			$.ajax({
+				url :`${url}/registerUser`,
+				type :'POST',
+				data:{
+				username : newUserName,
+				email : newEmail,
+				password : newPassword
+			},
+	
+				success : function(newUserFromMongo){
+				console.log(newUserFromMongo);
+				if (newUserFromMongo !== 'username taken already. Please try another one') {
+					alert('You are registered');
+					$('#loginUserModal').show();
+					$('#registerNewUserModal').hide();
+					//$('#loginUserBtn').show();
+					$('#registerNewUserBtn').hide();
+					$('#registerUserForm').hide();
+					clearFields();
+				 } else {
+					alert('Congrats');
+					$('#newUserName').val('');
+					$('#newEmail').val('');
+					$('#newPassword').val('');
+				}
+				}, //success
+				error:function(newUserFromMongo){
+					console.log('Already an exsisting member');
+				}//error
+			});
+		}
 	});
 
 //login
@@ -154,6 +157,8 @@ $(document).ready(function(){
 					sessionStorage.setItem('userEmail',user['email']);
 					console.log(sessionStorage);
 			    }
+			    document.getElementById('logoutUserBtnContainer').innerHTML = 
+			    `<button class="btn btn-danger btn-block">Logout</button>`
 			  },//success
 			  error:function(){
 				console.log('error: cannot call api');
@@ -161,53 +166,50 @@ $(document).ready(function(){
 			});// ajax
 		}// else
 	});// submit function for login loginForm
-  //logout
-$('#logoutBtn').click(function(){
-  console.log('You are logged out');
-  sessionStorage.clear();
-  console.log(sessionStorage);
-  $('#manipulate').hide();
-  $('#loginBtn').show();
-  $('#logoutBtn').hide();
-  $('#registerBtn').show();
-  $('#viewUserBtn').hide();
-  $('#productForm').hide();
-  $('#addProductForm').hide();
-  $('#delForm').hide();
+  	//logout
+	$('#logoutBtn').click(function(){
+		console.log('You are logged out');
+		sessionStorage.clear();
+		console.log(sessionStorage);
+		document.getElementById('addProjectBtnContainer').innerHTML = '';
+	});//submit function for registerForm
 
-	});//ajax
-
-	} else {
-	alert('Fillout all fields');
-	}
-}
-});//submit function for registerForm
-
-
+	// Displays all of the users as navigation menu
+	// $.ajax({
+		// url : `${url}/viewUsers`,
+		// type : 'GET',
+		// dataType : 'json',
+		// success : function(usersFromMongo){
+			// console.log(usersFromMongo);
+			// for(var i = 0; i < usersFromMongo.length; i++){
+				// document.getElementById('').innerHTML +=
+			// }
+		// },
+		// error : function(){
+			// console.log('error: cannot call api');
+		// }
+	// });
 
 
 
 
 
 	// Gets user's from data base for navigation
-		$.ajax({
-			url : `${url}/registerProject`,
-			type : 'POST',
-			data : {
-			projectName : projectName ,
-			projectBrief : projectBrief ,
-			projectImage : projectImage ,
-			projectLink : projectLink ,
-			user_id : userId
-			},
-			success : function(data){
+		// $.ajax({
+			// url : `${url}/viewUsers`,
+			// type : 'GET',
+			// data : {
+			// username : projectName ,
+			// user_id : userId
+			// },
+			// success : function(data){
 
-			}, // success end
-			error:function(){
-				console.log('error: cannot call api');
-			}// error
-		});// ajax
-	});// viewUser button
+			// }, // success end
+			// error:function(){
+				// console.log('error: cannot call api');
+			// }// error
+		// });// ajax
+	// });// viewUser button
 
 
 
@@ -312,6 +314,7 @@ $('#logoutBtn').click(function(){
 				console.log('Error: Cannot call API');
 			}
 		});
+	});
   
 	// Delete a prject function
 	function deleteProjectBtnClick(){
@@ -331,9 +334,9 @@ $('#logoutBtn').click(function(){
 						console.log('error: cannot call api');
 					}
 				});
-			};
+			}
 		});
-	};
+	}
 
 	// Update a project
 	function updateProjectBtnClick(){
