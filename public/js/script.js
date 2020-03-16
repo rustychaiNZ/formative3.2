@@ -216,26 +216,6 @@ $(document).ready(function(){
 		}
 	});
 
-	// Create card buttons for delete and modify
-	// function createEditBtns(projects){
-// 
-		// let loggedUser = sessionStorage.getItem('userId');
-		// if(sessionStorage['userId'] == loggedUser){
-		// 
-		// for(var i = 0; projects.length; i++){
-			// document.getElementById('cardFooter').innerHTML +=
-				// `<div class="row">
-					// <div class="col-6">
-						// <button id="${projects[i].project_id}" class="btn btn-block btn-primary project-update">Update</button>
-					// </div>
-					// <div class="col-6">
-						// <button id="${projects[i].project_id}" class="btn btn-block btn-danger project-delete">Delete</button>
-					// </div>
-				// </div>`;
-			// }
-		// }
-	// }
-
 	function clickNavigate(){
 		// View Project Cards
 		// Needs - BtnClick id | if parameter | author name info for card | Btn link for View More card btn
