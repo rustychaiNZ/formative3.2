@@ -4,7 +4,7 @@ let url;
 // User (register & login) form variables
 let newUserName = '';
 let newEmail = '';
-let password = '';
+let passwordMemory = '';
 let newPassword = '';
 let confirmPassword = '';
 
@@ -51,68 +51,104 @@ $(document).ready(function(){
 		console.log('no user logged in');
 	}
 
-//Register User
+	//Register User
+	// $('#registerUserForm').submit(function(){
+// 
+		// event.preventDefault();
+	// 
+		// newUserName = document.getElementById('newUserName').value;
+		// newEmail = document.getElementById('newEmail').value;
+		// newPassword = document.getElementById('newPassword').value;
+		// confirmPassword = document.getElementById('confirmPassword').value;
+// 
+		// Validates to make sure that the user has entered the right password
+		// if(newPassword !== confirmPassword){
+			// alert('Please Make sure passwords match');
+		// } else{
+// 
+			// passwordMemory = confirmPassword;
+// 
+			// Conditional statement that ensures that the user has filled out all of the fields.
+			// if((newUserName !== '') && (newEmail !== '') && (passwordMemory !== '')){
+			// 
+				// $.ajax({
+					// url :`${url}/registerUser`,
+					// type :'POST',
+					// dataType : 'json',
+					// data : {
+						// username : newUserName,
+						// email : newEmail,
+						// password : passwordMemory
+					// },
+					// success : function(newUserFromMongo){
+						// console.log(newUserFromMongo);
+						// if (newUserFromMongo !== 'username taken already. Please try another one') {
+							// alert('You are registered');
+							// $('#loginUserModal').show();
+							// $('#registerNewUserModal').hide();
+							// $('#loginUserBtn').show();
+							// $('#registerNewUserBtn').hide();
+							// $('#registerUserForm').hide();
+							// clearFields();
+						 // } else {
+							// alert('Congrats');
+							// $('#newUserName').val('');
+							// $('#newEmail').val('');
+							// $('#newPassword').val('');
+						// }
+					// }, //success
+					// error : function(newUserFromMongo){
+						// console.log('Already an exsisting member');
+					// }//error
+				// });	
+				// console.log('testing');
+// 
+			// } else {
+				// alert('Please enter all details');
+			// }
+		// } // confirm password conditional statement
+		// console.log(newUserName,newEmail, newPassword);
+	// });
 
 	$('#registerUserForm').submit(function(){
-
 		event.preventDefault();
-	
-		let newUserName = $('#newUserName').val();
-		let newEmail = $('#newEmail').val();
-		let newPassword = $('#newPassword').val();
-		let confirmPassword = $('#confirmPassword').val();
 
-		// Validates to make sure that the user has entered the right password
+		newUserName = document.getElementById('newUserName').value;
+		newEmail = document.getElementById('newEmail').value;
+		newPassword = document.getElementById('newPassword').value;
+		confirmPassword = document.getElementById('confirmPassword').value;
+
+		// Ensures that the user has made their passwords match
 		if(newPassword !== confirmPassword){
-			alert('Please Make sure passwords match');
+			alert('Ensure your passwords are matching');
 		} else{
-
+			// Sets the password to the one that the user has inputted
 			password = confirmPassword;
-		}
-
-		console.log(newUserName,newEmail, newPassword);
-
-		// Conditional statement that ensures that the user has filled out all of the fields.
-		// if (newUserName == '' || newEmail == '' || newPassword == ''){
-		if((username !== '') && (newEmail !== '') && (password !== '')){
-
-		//   alert('Please enter all details');
-		// } else {
-	
-			$.ajax({
-				url :`${url}/registerUser`,
-				type :'POST',
-				data:{
-				username : newUserName,
-				email : newEmail,
-				password : newPassword
-			},
-	
-				success : function(newUserFromMongo){
-				console.log(newUserFromMongo);
-				if (newUserFromMongo !== 'username taken already. Please try another one') {
-					alert('You are registered');
-					$('#loginUserModal').show();
-					$('#registerNewUserModal').hide();
-					//$('#loginUserBtn').show();
-					$('#registerNewUserBtn').hide();
-					$('#registerUserForm').hide();
-					clearFields();
-				 } else {
-					alert('Congrats');
-					$('#newUserName').val('');
-					$('#newEmail').val('');
-					$('#newPassword').val('');
-				}
-				}, //success
-				error:function(newUserFromMongo){
-					console.log('Already an exsisting member');
-				}//error
-			});
+			if((newUserName === '') && (newEmail === '') && (password === '')){
+				alert('Please fill out all fields');
+			} else{				
+				$.ajax({
+					url :`${url}/registerUser`,
+					type :'POST',
+					dataType : 'json',
+					data : {
+						username : newUserName,
+						email : newEmail,
+						password : passwordMemory
+					},
+					success : function(newUserFromMongo){
+						console.log(newUserFromMongo);
+					}, // success
+					error : function(newUserFromMongo){
+						console.log('Already an exsisting member');
+					} // error
+				});
+				console.log(newUserName, newEmail, password);	
+			}
 		}
 	});
 
-//login
+	//login
 	$('#loginBtn').click(function(){
 		$('#loginForm').show();
 	});
@@ -158,9 +194,9 @@ $(document).ready(function(){
 					console.log(sessionStorage);
 			    }
 			    document.getElementById('logoutUserBtnContainer').innerHTML = 
-			    `<button class="btn btn-danger btn-block">Logout</button>`
+			    `<button class="btn btn-danger btn-block">Logout</button>`;
 			  },//success
-			  error:function(){
+			  error : function(){
 				console.log('error: cannot call api');
 			  }// error
 			});// ajax
