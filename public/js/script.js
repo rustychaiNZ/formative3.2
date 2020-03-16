@@ -1,6 +1,7 @@
 console.log(`Formative 3.2`);
 let url;
 
+
 // User (register & login) form variables
 let newUserName = '';
 let newEmail = '';
@@ -43,6 +44,8 @@ console.log(sessionStorage);
 // Document ready function starts
 $(document).ready(function(){
 
+$('#registerNewUserModal').hide();
+
 	// create project button created dynamically
 	if(sessionStorage['userId']){
 		document.getElementById('addProjectBtnContainer').innerHTML =
@@ -52,6 +55,9 @@ $(document).ready(function(){
 	}
 
 //Register User
+// $('#registerNewUserBtn').click(function(){
+// 	$('#registerNewUserModal').show();
+// })
 
 	$('#registerUserForm').submit(function(){
 
@@ -90,19 +96,28 @@ $(document).ready(function(){
 
 				success : function(newUserFromMongo){
 				console.log(newUserFromMongo);
-				if (newUserFromMongo !== 'username taken already. Please try another one') {
-					alert('You are registered');
-					$('#loginUserModal').show();
-					$('#registerNewUserModal').hide();
-					//$('#loginUserBtn').show();
-					$('#registerNewUserBtn').hide();
-					$('#registerUserForm').hide();
-					clearFields();
-				 } else {
-					alert('Congrats');
+				if (newUserFromMongo === 'username taken already. Please try another one') {
 					$('#newUserName').val('');
 					$('#newEmail').val('');
 					$('#newPassword').val('');
+					$('#confirmPassword').val('');
+					//console.log('Congrats! You are registered');
+					//$('#loginUserModal').show();
+					//$('#registerNewUserModal').hide();
+					//$('#loginUserBtn').show();
+					//$('#registerNewUserBtn').hide();
+					//$('#registerUserForm').hide();
+					clearFields();
+				 } else {
+					//alert('Congrats');
+					$('#newUserName').val('');
+					$('#newEmail').val('');
+					$('#newPassword').val('');
+					$('#confirmPassword').val('');
+
+					$('#registerNewUserModal').hide();
+					$('.modal-backdrop').hide();
+					//console.log('You are registered');
 				}
 				}, //success
 				error:function(newUserFromMongo){
@@ -146,19 +161,39 @@ $(document).ready(function(){
 					$('#username').val('');
 					$('#password').val('');
 			    } else{
-					$('#loginBtn').hide();
-					$('#loginForm').hide();
-					$('#registerBtn').hide();
+					alert('You are logged In, Go ahead!');
+					$('#username').val('');
+					$('#password').val('');
+					$('#loginUserModal').hide();
+					$('.modal-backdrop').hide();
+					//$('.page').show();
+					$('#registerNewUserBtn').hide();
+					$('#loginUserBtn').hide();
+					$('#toolbar').show();
+					//$('#loginForm').hide();
+					//$('#registerBtn').hide();
 					$('#logoutBtn').show();
-					$('#manipulate').show();
-					$('#viewUserBtn').show();
+					//$('#manipulate').show();
+					//$('#viewUserBtn').show();
 					sessionStorage.setItem('userID', user['_id']);
 					sessionStorage.setItem('userName',user['username']);
 					sessionStorage.setItem('userEmail',user['email']);
 					console.log(sessionStorage);
+					console.log('You are logged In');
 			    }
 			    document.getElementById('logoutUserBtnContainer').innerHTML =
-			    `<button class="btn btn-danger btn-block">Logout</button>`
+			    `<button class="btn btn-danger btn-block logoutBtn">Logout</button>`
+					//logout
+				$('.logoutBtn').click(function(){
+					console.log('You are logged out');
+					sessionStorage.clear();
+					console.log(sessionStorage);
+					$('.logoutBtn').hide();
+					$('#registerNewUserBtn').show();
+					$('#loginUserBtn').show();
+					$('#toolbar').hide();
+					//document.getElementById('addProjectBtnContainer').innerHTML = '';
+					});
 			  },//success
 			  error:function(){
 				console.log('error: cannot call api');
@@ -166,18 +201,14 @@ $(document).ready(function(){
 			});// ajax
 		}// else
 	});// submit function for login loginForm
-  	//logout
-	$('#logoutBtn').click(function(){
-		console.log('You are logged out');
-		sessionStorage.clear();
-		console.log(sessionStorage);
-		document.getElementById('addProjectBtnContainer').innerHTML = '';
-	});//submit function for registerForm
+
+
 
 	// Displays all of the users as navigation menu
 	//display users dynamically on nav.
 		// function viewUsers(){
 		// document.getElementById('navContainer').innerHTML = '';
+	function viewUsers(){
 	$.ajax({
 		url : `${url}/viewUsers`,
 		type : 'GET',
@@ -196,7 +227,8 @@ $(document).ready(function(){
 		}
 
 	});
-//};
+	viewUsers();
+};
 
 
 	// Gets user's from data base for navigation
@@ -266,7 +298,6 @@ $(document).ready(function(){
 
 		let loggedUser = sessionStorage['userId'];
 		if(sessionStorage['userId'] == loggedUser){
-
 		document.getElementById('cardFooter').innerHTML +=
 			`<div class="row">
 				<div class="col-6">
@@ -291,9 +322,9 @@ $(document).ready(function(){
 			dataType : 'json',
 			success : function(projectsFromMongo) {
 				console.log(projectsFromMongo);
-
+				document.getElementById('printOut').innerHTML = "";
 				for (let i = 0; i < projectsFromMongo.length; i++) {
-					if(projectsFromMongo[i].user_id == projectUserId){
+					// if(projectsFromMongo[i].user_id == projectUserId){
 						document.getElementById('printOut').innerHTML +=
 						`<div class=col-6>
 							<div class="card">
@@ -309,11 +340,11 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>`;
-						createEditBtns();
-					}
+						//createEditBtns();
+					// }
 				}
-				deleteProjectBtnClick();
-				updateProjectBtnClick();
+				//deleteProjectBtnClick();
+				//updateProjectBtnClick();
 			}, //success
 			error:function(){
 				console.log('Error: Cannot call API');
@@ -343,10 +374,10 @@ $(document).ready(function(){
 		});
 	}
 
-	// Update a project
+	// Update a project  (yet to work on)
 	function updateProjectBtnClick(){
 	 	let projectToModify = this.id;
-	 	$('.update-project').on('click', function(){
+	 	$('#updateProjectForm').submit( function(){
 	 		if(this.id === projectToModify){
 	 			$.ajax({
 	 				url : `${url}/deleteProject/${projectToDeleteId}`,
