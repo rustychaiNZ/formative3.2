@@ -48,6 +48,47 @@ app.get('/viewUsers', (req,res)=>{
 	});
 });
 
+//Register users
+app.post('/registerUser', (req, res)=>{
+	//checking if user is found in the db already.
+	User.findOne({username:req.body.username},(err, userResult)=>{
+		if(userResult){
+			res.send('username taken already, Please try another one');
+		} else {
+			const hash = bcryptjs.hashSync(req.body.password);
+			const user = new User({
+				user_id : new mongoose.Types.ObjectId,
+				username  : req.body.username,
+				email : req.body.email,
+				password  : hash
+		  });
+		  //Save to database and notify the user accordingly
+			user.save().then(result =>{
+				res.send(result);
+			}).catch(err => res.send(err));
+		}
+	});
+});
+
+// Loging an exsisting user
+app.post('/loginUser' , (req,res) =>{
+	User.findOne({username:req.body.username},(err,userResult) =>{
+		if(userResult){
+			// If the user has successfully entered their  details
+			if(bcryptjs.compareSync(req.body.password, userResult.password)){
+				res.send(userResult);
+			}
+			// If the user incorrectly enters their login details that exsist in the database
+			else{
+				res.send('not authorized');
+			}
+		}
+		else{
+			res.send('User is not found. Please register');
+		}
+	});
+});	
+
 // Adding a project
 app.post('/registerProject' , (req,res) =>{
 	const project = new Project({
@@ -105,28 +146,6 @@ app.delete('/deleteProject/:id', (req,res) =>{
 			res.send('Error: Not Found');
 		}
 	}).catch(err => res.send(err));
-});
-
-//Register users
-app.post('/registerUser', (req, res)=>{
-	//checking if user is found in the db already.
-	User.findOne({username:req.body.username},(err, userResult)=>{
-		if(userResult){
-			res.send('username taken already, Please try another one');
-		} else {
-			const hash = bcryptjs.hashSync(req.body.password);
-			const user = new User({
-				user_id : new mongoose.Types.ObjectId,
-				username  : req.body.username,
-				email : req.body.email,
-				password  : hash
-		  });
-		  //Save to database and notify the user accordingly
-			user.save().then(result =>{
-				res.send(result);
-			}).catch(err => res.send(err));
-		}
-	});
 });
 
 // DO NOT ADD CODE PAST THIS POINT
