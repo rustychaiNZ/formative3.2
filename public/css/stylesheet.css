@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 label {
@@ -14,7 +14,22 @@ label {
 }
 
 .page-style {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  background: #042530;
+  background: -moz-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: -webkit-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#042530",endColorstr="#3b5b85",GradientType=1);
+=======
   background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+>>>>>>> 851c1f27a3714394edeb5b7bc8843916ec18929e
+=======
+  background: #042530;
+  background: -moz-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: -webkit-linear-gradient(164deg, #042530 29%, #3b5b85 100%);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+>>>>>>> 3ac2e8c8806648cc18eb7df868d240ca74b25ead
 }
 
 .fill-height {
@@ -31,6 +46,11 @@ label {
 
 .welcome-page {
   padding: 2em 3em 0 1em;
+}
+
+.nav-users {
+  max-height: 50vh;
+  overflow: auto;
 }
 
 .list-group {
@@ -51,7 +71,7 @@ label {
   height: 45px;
   background-color: #4b6cb7;
   border-color: #4b6cb7;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
