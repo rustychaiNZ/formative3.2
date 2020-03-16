@@ -268,7 +268,7 @@ $(document).ready(function(){
 		projectBriefMemory = $('#projectBrief').val();
 		projectImageMemory = $('#projectPicture').val();
 		projectLinkMemory = $('#projectExternalLink').val();
-		userIdMemory = sessionStorage.getItem('userId');
+		userIdMemory = sessionStorage.getItem('userID');
 
 		// Checks to see that all of the fields have been filled out for registering a new project
 		if((projectNameMemory !== '') && (projectBriefMemory !== '') && (projectImageMemory !== '') && (projectLinkMemory !== '')){
@@ -301,7 +301,7 @@ $(document).ready(function(){
 	// Create card buttons for delete and modify
 	function createEditBtns(){
 
-		let loggedUser = sessionStorage['userId'];
+		let loggedUser = sessionStorage.getItem('userId');
 		if(sessionStorage['userId'] == loggedUser){
 		
 		document.getElementById('cardFooter').innerHTML +=
@@ -330,7 +330,6 @@ $(document).ready(function(){
 			} 
 		});
 	}
-	highlightSelectedUser();
 
 	function clickNavigate(){
 		// View Project Cards
@@ -342,21 +341,22 @@ $(document).ready(function(){
 				url : `${url}/viewProjects`,
 				type : 'GET',
 				dataType : 'json',
-				success : function(projectsFromMongo) {
+				success : function(projects) {
 					console.log(projectUserId);
 					
 					// Displays all project cards
-					for (let i = 0; i < projectsFromMongo.length; i++) {
-						if(projectsFromMongo[i].user_id == projectUserId){
+					for (let i = 0; i < projects.length; i++) {
+						console.log(projects[i].user_id);
+						if(projects[i].user_id == projectUserId){
 							document.getElementById('printOut').innerHTML +=
 							`<div class=col-6>
 								<div class="card">
-									<img src="${projectsFromMongo[i].projectImage}" class="card-img-top" alt="Project Image">
+									<img src="${projects[i].projectImage}" class="card-img-top" alt="Project Image">
 							
 									<div class="card-body">
-										<h5 class="card-title">${projectsFromMongo[i].projectName}</h5>
-										<p class="card-text">${projectsFromMongo[i].projectBrief}</p>
-										<a id="${projectsFromMongo[i].project_id}" href="#" class="btn btn-primary">View More</a>
+										<h5 class="card-title">${projects[i].projectName}</h5>
+										<p class="card-text">${projects[i].projectBrief}</p>
+										<a id="${projects[i].project_id}" href="#" class="btn btn-primary">View More</a>
 									</div>
 									<div id="cardFooter" class="card-footer text-muted">
 							
@@ -365,6 +365,9 @@ $(document).ready(function(){
 							</div>`;
 							createEditBtns();
 							console.log('hello world');
+						}
+						else{
+							console.log('Double check');
 						}
 					}
 					deleteProjectBtnClick();
@@ -376,7 +379,6 @@ $(document).ready(function(){
 			});
 		});
 	}
-	clickNavigate();
 
 	// Delete a prject function
 	function deleteProjectBtnClick(){
