@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap stylesheet -->
+		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+		<!-- Custom stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+		<title>Formative 3.2</title>
+	</head>
+
+	<body>
+
+		<!-- Page container -->
+		<div class="page row page-style">
+
+			<!-- Site side bar -->
+			<div class="col-3 py-5 px-4 site-side-bar">
+
+				<!-- Navigation bar starts -->
+				<div id="navContainer" class="list-group mt-5 mx-auto nav-users">
+					<!-- Filler buttons for now -->
+					<button id="homeScreen" type="button" data-toggle="list" class="list-group-item list-group-item-action active">Home</button>
+				</div>
+				<br>
+
+				<!-- Navigation bar ends -->
+
+				<!-- login and register container -->
+				<div class="row my-3">
+					<div class="col-6">
+						<button id="registerNewUserBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#registerNewUserModal">Register</button>
+					</div>
+					<div class="col-6">
+						<button id="loginUserBtn" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#loginUserModal">Login</button>
+					</div>
+				</div>
+				<!-- Login and register container ends -->
+
+				<!-- Add project button -->
+				<div class="row my-2">
+					<div id="addProjectBtnContainer" class="col-12">
+
+					</div>
+				</div>
+				<!-- Logout button container -->
+				<div class="row my-2">
+					<div id="logoutUserBtnContainer" class="col-12">
+
+					</div>
+				</div>
+
+			</div>
+			<!-- Site side bar end -->
+
+			<!-- Site container -->
+			<div class="col-9">
+
+				<!-- Content container -->
+				<div class="container fill-height bg-light">
+
+					<!-- Site welcoming message -->
+					<div id="welcomePage" class="row welcome-page">
+						<div class="col-12">
+							<h1 class="display-1">Hello World</h1>
+							<br>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+					</div>
+
+					<!-- Dynamically generated content prints here -->
+					<div id="printOut" class="row">
+
+					</div>
+
+				</div>
+				<!-- Content container end -->
+
+			</div>
+			<!-- Site container ends -->
+
+		</div>
+		<!-- Page container ends -->
+
+		<!-- Register user form -->
+		<div class="modal fade" id="registerNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-register" role="document">
+				<div class="modal-content">
+					<div class="modal-content">
+						<!-- Header -->
+						<div class="modal-header">
+							<h4 class="text-light">Register New User</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span class="text-light modal-close" aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Header end -->
+						<form id="registerUserForm">
+							<div class="modal-body bg-white">
+								<!-- User name -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-3">
+										<label for="newUserName">User Name</label>
+									</div>
+									<!-- Field -->
+									<div class="col-9">
+										<input name="newUserName" type="text" id="newUserName" class="form-control" placeholder="User name">
+									</div>
+								</div>
+								<!-- Email -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-3">
+										<label for="newEmail">Email Address</label>
+									</div>
+									<!-- Field -->
+									<div class="col-9">
+										<input name="newEmail" type="text" id="newEmail" class="form-control" placeholder="Email">
+									</div>
+								</div>
+								<!-- Link to profile picture -->
+								<!-- <div class="row my-3"> -->
+									<!-- Label -->
+									<!-- <div class="col-3"> -->
+										<!-- <label for="newUserProfilePic">Link to Profile Picture:</label> -->
+									<!-- </div> -->
+									<!-- Field -->
+									<!-- <div class="col-9"> -->
+										<!-- <input name="newUserName" type="text" id="newUserName" class="form-control" placeholder="Enter google Drive url"> -->
+									<!-- </div> -->
+								<!-- </div> -->
+								<!-- Password -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-3">
+										<label for="newPassword">Password</label>
+									</div>
+									<!-- Field -->
+									<div class="col-9">
+										<input name="newPassword" type="password" id="newPassword" class="form-control" placeholder="Password">
+									</div>
+								</div>
+								<!-- Confirm Password -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-3">
+										<label for="confirmPassword">Confirm Password</label>
+									</div>
+									<!-- Field -->
+									<div class="col-9">
+										<input name="confirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="Confirm password">
+									</div>
+								</div>
+							</div>
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-lg btn-success">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Register form ends -->
+
+		<!-- Login form -->
+		<div class="modal fade" id="loginUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-login" role="document">
+				<div class="modal-content">
+					<!-- Modal header -->
+					<div class="modal-header">
+						<h4 class="text-light">Login</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span class="text-light modal-close" aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form id="loginForm">
+						<!-- Modal body -->
+						<div class="modal-body">
+								<div class="col-12">
+									<label for="username" class="">Username:</label>
+									<input type="text" id="username" name="username" class="form-control" placeholder="username">
+									<br>
+									<label for="password"> Password: </label>
+									<input type="password" name="password" id="password" class="form-control" placeholder="password">
+								</div>
+						</div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-lg btn-success">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- Login form end -->
+
+		<!-- Add project form -->
+		<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-new-project" role="document">
+				<div class="modal-content">
+					<div class="modal-content">
+						<!-- Header -->
+						<div class="modal-header bg-dark">
+							<h4 class="text-light">Create Project</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span class="text-light" aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!-- Header end -->
+						<form id="registerProjectForm">
+							<div class="modal-body bg-white">
+								<!-- Project name -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="newProjectName">Project Name:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<input name="newProjectName" type="text" id="newProjectName" class="form-control" placeholder="Project name">
+									</div>
+								</div>
+								<!-- Project Brief -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectBrief">Project Brief:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<textarea name="projectBrief" row="4" id="projectBrief" class="form-control" placeholder="Brief"></textarea>
+									</div>
+								</div>
+								<!-- Link to Project Screenshot -->
+								<div class="row align-items-stretch my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectPicture">Image Link:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10 align-self-center">
+										<input name="projectPicture" type="text" id="projectPicture" class="form-control" placeholder="Enter google Drive url">
+									</div>
+								</div>
+								<!-- Git Repo -->
+								<div class="row my-3">
+									<!-- Label -->
+									<div class="col-2">
+										<label for="projectExternalLink">Project Link:</label>
+									</div>
+									<!-- Field -->
+									<div class="col-10">
+										<input name="projectExternalLink" type="text" id="projectExternalLink" class="form-control" placeholder="e.g. https://github.com/xxxx">
+									</div>
+								</div>
+							</div>
+							<!-- Modal footer -->
+							<div class="modal-footer bg-light">
+								<button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+								<button id="submitProject" type="submit" class="btn btn-lg btn-success">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Add project form end -->
+
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="js/script.js"></script>
+	</body>
+
+</html>
